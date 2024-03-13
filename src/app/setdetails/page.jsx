@@ -46,7 +46,7 @@ const SetDeatil = () => {
         const response = await axios.post("/api/users/updatemoredetails", { username, name,bio,pic})
         console.log(response)
         toast.success(response.data.message);
-        router.push(`/profilepage/${localStorage.getItem("username")}`);
+        router.push(`/profilepage/${localstorage?.getItem("username")}`);
       } catch (error) {
         toast.error(error.mesaage);
         console.log(error);

@@ -41,7 +41,7 @@ const LoginPage = () => {
         console.log(verifylogin.message)
         setLoading(false);
         updateCurrentPage("profile")
-        localStorage.setItem("LoggedInUser", JSON.stringify(verifylogin.data.data));
+        localstorage?.setItem("LoggedInUser", JSON.stringify(verifylogin.data.data));
       } catch (error) {
         toast.error(error.response.data.message)
         console.log(error.response.data.message)

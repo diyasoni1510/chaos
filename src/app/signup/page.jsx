@@ -31,9 +31,9 @@ const SignupPage = () => {
         if (response.data.status === 201) {
           setLoading(false)
           toast.success("User Signed up succesfully");
-          localStorage.setItem("username", response.data.data.username);
-          localStorage.setItem("userId", response.data.data._id);
-        localStorage.setItem("user", JSON.stringify(response.data.data));
+          localstorage?.setItem("username", response.data.data.username);
+          localstorage?.setItem("userId", response.data.data._id);
+        localstorage?.setItem("user", JSON.stringify(response.data.data));
           router.push(`/profile/${username}`);
         } else {
           toast.error("User already exists");

@@ -69,8 +69,8 @@ const PostSection = () => {
     if (e.key === "Enter") {
       const response = await axios.post("/api/posts/updatecomment", {
         _id: postId,
-        user: localStorage.getItem("username"),
-        userpic: JSON.parse(localStorage.getItem("user")).pic,
+        user: localstorage?.getItem("username"),
+        userpic: JSON.parse(localstorage?.getItem("user")).pic,
         comment,
       });
       toast.success("comment sent");
@@ -87,7 +87,7 @@ const PostSection = () => {
   const followUser = async (follow) => {
     try {
       const response = await axios.post("/api/users/updatefollowers", {
-        _id: localStorage?.getItem("userId"),
+        _id: localstorage??.getItem("userId"),
         follow,
         add: true,
       });
@@ -124,10 +124,10 @@ const PostSection = () => {
                     </Link>
                   </div>
                 </div>
-                { post.userId !== localStorage?.getItem("userId") && 
+                { post.userId !== localstorage??.getItem("userId") && 
                 <div>
                   {post.userDetails[0].followers.includes(
-                    localStorage?.getItem("userId")
+                    localstorage??.getItem("userId")
                   ) ? (
                     <button className="text-sm md:text-base bg-white border-2 border-pink-400 text-pink-400 px-2 py-1 rounded-md font-semibold transform transition hover:bg-white hover:text-pink-400 disabled:bg-pink-300 hover:scale-95">
                       Following
@@ -151,7 +151,7 @@ const PostSection = () => {
                   onDoubleClick={() => {
                     updateLikes(
                       post._id,
-                      localStorage.getItem("username"),
+                      localstorage?.getItem("username"),
                       true
                     );
                   }}
@@ -160,14 +160,14 @@ const PostSection = () => {
 
               <div className="post-icons flex justify-between items-center mt-3 md:px-2">
                 <div className="flex space-x-4">
-                  {post.likes.includes(localStorage.getItem("username")) ===
+                  {post.likes.includes(localstorage?.getItem("username")) ===
                     false || islike === false ? (
                     <FaRegHeart
                       className="text-2xl md:text-3xl"
                       onClick={() => {
                         updateLikes(
                           post._id,
-                          localStorage.getItem("username"),
+                          localstorage?.getItem("username"),
                           true
                         );
                       }}
@@ -178,7 +178,7 @@ const PostSection = () => {
                       onClick={() => {
                         updateLikes(
                           post._id,
-                          localStorage.getItem("username"),
+                          localstorage?.getItem("username"),
                           false
                         );
                       }}

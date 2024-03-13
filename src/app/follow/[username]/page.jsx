@@ -51,7 +51,7 @@ const Follow = () => {
   const removeFollowers = async (follow) => {
     try {
       const response = await axios.post("/api/users/removefollower", {
-        _id: localStorage?.getItem("userId"),
+        _id: localstorage??.getItem("userId"),
         follow,
       });
     } catch (error) {
@@ -63,7 +63,7 @@ const Follow = () => {
     // if(add === false){
     try {
       const response = await axios.post("/api/users/updatefollowers", {
-        _id: localStorage?.getItem("userId"),
+        _id: localstorage??.getItem("userId"),
         follow: user,
         add
       });
@@ -75,7 +75,7 @@ const Follow = () => {
   // else if(add === true){
   //   try {
   //     const response = await axios.post("/api/users/updatefollowers", {
-  //       _id: localStorage?.getItem("userId"),
+  //       _id: localstorage??.getItem("userId"),
   //       follow: user,
   //       add
   //     });
@@ -92,7 +92,7 @@ const Follow = () => {
   // const followUser = async (follow) => {
   //   try {
   //     const response = await axios.post("/api/users/updatefollowers", {
-  //       _id: localStorage?.getItem("userId"),
+  //       _id: localstorage??.getItem("userId"),
   //       follow,
   //       add: true,
   //     });
@@ -103,7 +103,7 @@ const Follow = () => {
   //   }
   // };
   useEffect(() => {
-    FollowOf === localStorage?.getItem("username")
+    FollowOf === localstorage??.getItem("username")
       ? setIsMyProfile(true)
       : setIsMyProfile(false);
     getUserInfo(FollowOf);
@@ -193,7 +193,7 @@ const Follow = () => {
                           Remove
                         </button>
                       ) : JSON.parse(
-                          localStorage.getItem("user")
+                          localstorage?.getItem("user")
                         ).following.includes(following._id) ? (
                         <button
                           onClick={() => UpdateFollower(follower._id,false)}
@@ -243,7 +243,7 @@ const Follow = () => {
                     </div>
                     <div>
                       {isMyProfile ||
-                      following.followers.includes(localStorage?.getItem("userId")) ? (
+                      following.followers.includes(localstorage??.getItem("userId")) ? (
                         <button
                           onClick={() => UpdateFollower(following._id,false)}
                           className="bg-pink-300 text-white font-semibold py-1 px-5 text-sm rounded-md"

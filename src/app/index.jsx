@@ -14,11 +14,11 @@ const Index = () => {
   const { CurrentPage } = useRouteContext();
   console.log(CurrentPage)
   useEffect(()=>{
-    localStorage.setItem("currentpage",CurrentPage)
+    localstorage?.setItem("currentpage",CurrentPage)
   },[CurrentPage])
   return (
     <>
-     { !localStorage?.getItem("LoggedInUser") ? (
+     { !localstorage??.getItem("LoggedInUser") ? (
         <LogInOrSignuppage />
       ) : CurrentPage === "profile" ? (
         <ProfilePage />
