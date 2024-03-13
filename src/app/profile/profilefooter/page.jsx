@@ -34,9 +34,9 @@ const ProfileFooter = () => {
           "Cache-Control": "no-cache",
         },
       });
-      localstorage?.removeItem("username");
-      localstorage?.removeItem("userId");
-      localstorage?.removeItem("user");
+      localStorage?.removeItem("username");
+      localStorage?.removeItem("userId");
+      localStorage?.removeItem("user");
       setLogoutLoading(false);
       updateCurrentPage("profile")
     } catch (error) {
@@ -52,8 +52,8 @@ const ProfileFooter = () => {
       const response = await axios.post("/api/users/uploadpost", {
         post,
         caption,
-        userId: JSON.parse(localstorage?.getItem("LoggedInUser"))._id,
-        username: JSON.parse(localstorage?.getItem("LoggedInUser")).username,
+        userId: JSON.parse(localStorage?.getItem("LoggedInUser"))._id,
+        username: JSON.parse(localStorage?.getItem("LoggedInUser")).username,
       });
       console.log(response);
       setLoading(false);

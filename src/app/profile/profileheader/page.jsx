@@ -15,7 +15,7 @@ const ProfileHeader = () => {
   // const router = useRouter();
   const { updateCurrentPage } = useRouteContext()
   const setUserLogout = () => {
-    localstorage?.removeItem("userToken");
+    localStorage?.removeItem("userToken");
     updateCurrentPage("profile")
   };
   return (

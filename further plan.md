@@ -29,7 +29,7 @@ im making an insta clone in which i have posts so when i post and refresh the pa
 -----------
 -> humne allmessages api ko userone and usertwo se find karke ni fetch kiya hai jiski wajah se saare msg saare users l chat page pe dikh rhe hai to all messages ki api update karni hai...usko post request banana hai aur usko update krke frontend update krna hai
 
--> humne chat model k message field me sender ni bheja to model me change krke fir update chat api ko update krke frontend pe localstorage? se username fetch krke usko har sender se match karaenge....agar match ho gya to message para me float right class aur match ni hua to message para me float left class add krenge
+-> humne chat model k message field me sender ni bheja to model me change krke fir update chat api ko update krke frontend pe localStorage? se username fetch krke usko har sender se match karaenge....agar match ho gya to message para me float right class aur match ni hua to message para me float left class add krenge
 
 
 8 feb 2024 -

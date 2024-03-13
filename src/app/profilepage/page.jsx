@@ -18,7 +18,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 const ProfilePage = () => {
   const router = useRouter();
   const [user, setUser] = useState(
-    JSON.parse(localstorage?.getItem("LoggedInUser"))
+    JSON.parse(localStorage?.getItem("LoggedInUser"))
   );
   const [posts, setPosts] = useState([]);
   const [pic, setPic] = useState("");
@@ -37,7 +37,7 @@ const ProfilePage = () => {
     try {
       
       const post = await axios.post("/api/posts/getposts", {
-        userId: JSON.parse(localstorage?.getItem("LoggedInUser"))._id,
+        userId: JSON.parse(localStorage?.getItem("LoggedInUser"))._id,
       });
       console.log("post"+post)
       setPosts([post.data.data][0]);
@@ -52,7 +52,7 @@ const ProfilePage = () => {
   const followUser = async (follow) => {
     try {
       const response = await axios.post("/api/users/updatefollowers", {
-        _id: localstorage?.getItem("userId"),
+        _id: localStorage?.getItem("userId"),
         follow,
         add: true,
       });
@@ -66,7 +66,7 @@ const ProfilePage = () => {
   const UnfollowUser = async (user) => {
     try {
       const response = await axios.post("/api/users/updatefollowers", {
-        _id: localstorage?.getItem("userId"),
+        _id: localStorage?.getItem("userId"),
         follow: user,
         add: false,
       });
@@ -91,7 +91,7 @@ const ProfilePage = () => {
             </button>
             <p className="font-semibold">{user.username ? user.username : ""}</p>
           </div>
-          {userUserName === localstorage?.getItem("username") && (
+          {userUserName === localStorage?.getItem("username") && (
             <div className="flex flex-col justify-center items-center space-x-4 ">
               <HiDotsVertical
                 className="text-2xl"
@@ -100,7 +100,7 @@ const ProfilePage = () => {
               {edit === true && (
                 <div className="cursor-pointer absolute top-12 border right-0 bg-white p-2">
                   <Link
-                    href={`/setdetails/${localstorage?.getItem("username")}`}
+                    href={`/setdetails/${localStorage?.getItem("username")}`}
                   >
                     Edit profile
                   </Link>
@@ -144,12 +144,12 @@ const ProfilePage = () => {
           </p>
         </div>
         <div className="flex px-2 my-3 justify-between">
-          {console.log(user.username,JSON.parse(localstorage?.getItem("LoggedInUser")).username)}
-          {user.username === JSON.parse(localstorage?.getItem("LoggedInUser")).username ? (
+          {console.log(user.username,JSON.parse(localStorage?.getItem("LoggedInUser")).username)}
+          {user.username === JSON.parse(localStorage?.getItem("LoggedInUser")).username ? (
             <button className="bg-pink-300 text-white font-semibold py-1 px- rounded-md px-6">
               Edit Profile
             </button>
-          ) : followers.includes(localstorage?.getItem("userId")) ? (
+          ) : followers.includes(localStorage?.getItem("userId")) ? (
             <button
               className="bg-pink-300 text-white font-semibold py-1 px-10 rounded-md"
               onClick={() => UnfollowUser(userId)}

@@ -19,7 +19,7 @@ const MessagePage = () => {
   const [chatId,setChatId] = useState()
   const router = useRouter();
 
-  const userOne = localstorage?.getItem("userId");
+  const userOne = localStorage?.getItem("userId");
 
   const getUserInfo = async () => {
     try {
@@ -52,7 +52,7 @@ const MessagePage = () => {
       const response = await axios.post("/api/chat/updatechat", {
         chatId,
         message,
-        sender:localstorage?.getItem("userId")
+        sender:localStorage?.getItem("userId")
       });
       getAllMessage()
       setMessage("")
@@ -150,7 +150,7 @@ const MessagePage = () => {
           </p> */}
           {allMessages &&
             allMessages.map((message, index) => {
-              if(message.sender === localstorage?.getItem("userId"))
+              if(message.sender === localStorage?.getItem("userId"))
               {
               return (
                 <p
