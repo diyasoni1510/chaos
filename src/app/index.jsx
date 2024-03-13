@@ -18,7 +18,7 @@ const Index = () => {
   },[CurrentPage])
   return (
     <>
-     { !localstorage??.getItem("LoggedInUser") ? (
+     { !localstorage?.getItem("LoggedInUser") ? (
         <LogInOrSignuppage />
       ) : CurrentPage === "profile" ? (
         <ProfilePage />

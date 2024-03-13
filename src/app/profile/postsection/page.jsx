@@ -87,7 +87,7 @@ const PostSection = () => {
   const followUser = async (follow) => {
     try {
       const response = await axios.post("/api/users/updatefollowers", {
-        _id: localstorage??.getItem("userId"),
+        _id: localstorage?.getItem("userId"),
         follow,
         add: true,
       });
@@ -124,10 +124,10 @@ const PostSection = () => {
                     </Link>
                   </div>
                 </div>
-                { post.userId !== localstorage??.getItem("userId") && 
+                { post.userId !== localstorage?.getItem("userId") && 
                 <div>
                   {post.userDetails[0].followers.includes(
-                    localstorage??.getItem("userId")
+                    localstorage?.getItem("userId")
                   ) ? (
                     <button className="text-sm md:text-base bg-white border-2 border-pink-400 text-pink-400 px-2 py-1 rounded-md font-semibold transform transition hover:bg-white hover:text-pink-400 disabled:bg-pink-300 hover:scale-95">
                       Following
