@@ -7,7 +7,6 @@ import MyProfilePage from "./profilepage/page";
 import ProfilePage from "./profile/page";
 import SearchPage from "./searchpage/page";
 import MessageListPage from "./messagelist/page"
-// import MessagePage from "./messagepage/" 
 import EditProfile from "./setdetails/page"
 
 

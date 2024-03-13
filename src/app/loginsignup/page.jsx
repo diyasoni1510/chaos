@@ -4,7 +4,7 @@ import Login from "../login/page"
 import Signup from "../signup/page"
 import { Toaster } from "react-hot-toast";
 
-const page = () => {
+const Page = () => {
     const [openTab, setOpenTab] = React.useState(1);
     return (
       <>
@@ -67,4 +67,4 @@ const page = () => {
     );
 }
 
-export default page
+export default Page
