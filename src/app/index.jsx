@@ -28,9 +28,7 @@ const Index = () => {
         <SearchPage />
       ) : CurrentPage === "messagelist" ? (
         <MessageListPage />
-      ) : CurrentPage === "messagepage" ? (
-        <MessagePage />
-      ) :CurrentPage === "editprofile" ? (
+      ) : CurrentPage === "editprofile" ? (
         <EditProfile />
       ) : (
         <ProfilePage />
