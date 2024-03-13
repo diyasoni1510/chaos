@@ -10,10 +10,12 @@ import { FiUpload } from "react-icons/fi";
 import axios from "axios";
 import { mutate } from "swr";
 import toast, { Toaster } from "react-hot-toast";
+import { useRouteContext } from "@/context";
 
 
 const ProfileFooter = () => {
   const router = useRouter();
+  const { updateCurrentPage } = useRouteContext()
   const [isUpload, setIsUpload] = useState(false);
   const [loading, setLoading] = useState(false);
   const [picUploading, setPicUploading] = useState(false);
@@ -36,7 +38,7 @@ const ProfileFooter = () => {
       localStorage.removeItem("userId");
       localStorage.removeItem("user");
       setLogoutLoading(false);
-      router.push("/");
+      updateCurrentPage("profile")
     } catch (error) {
       console.log(error);
       console.log(error.mesage);
@@ -50,8 +52,8 @@ const ProfileFooter = () => {
       const response = await axios.post("/api/users/uploadpost", {
         post,
         caption,
-        userId: JSON.parse(localStorage.getItem("user"))._id,
-        username: localStorage.getItem("username"),
+        userId: JSON.parse(localStorage.getItem("LoggedInUser"))._id,
+        username: JSON.parse(localStorage.getItem("LoggedInUser")).username,
       });
       console.log(response);
       setLoading(false);
@@ -160,13 +162,13 @@ const ProfileFooter = () => {
         <FaHome
           className="text-2xl cursor-pointer"
           onClick={() => {
-            router.push("/profile");
+            updateCurrentPage("profile")
           }}
         />
         <IoSearch
           className="text-2xl cursor-pointer"
           onClick={() => {
-            router.push("/searchpage");
+            updateCurrentPage("search")
           }}
         />
         <FiPlusCircle
@@ -188,12 +190,12 @@ const ProfileFooter = () => {
       </div>
       {footerSlider === true && (
         <div className="fixed bottom-10 border-t-2 w-full bg-white flex flex-col space-y-3 py-2 ">
-          <button onClick={() => router.push(`/setdetails/${username}`)}>
+          <button onClick={() => updateCurrentPage("editprofile")}>
             Edit profile
           </button>
           <button
             onClick={() =>
-              router.push(`/profilepage/${localStorage.getItem("username")}`)
+             updateCurrentPage("myprofile")
             }
           >
             Profile

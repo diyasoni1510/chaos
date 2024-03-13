@@ -9,12 +9,14 @@ import { FaRegHeart } from "react-icons/fa";
 import { IoPersonCircle } from "react-icons/io5";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useRouteContext } from "@/context";
 
 const ProfileHeader = () => {
-  const router = useRouter();
+  // const router = useRouter();
+  const { updateCurrentPage } = useRouteContext()
   const setUserLogout = () => {
     localStorage.removeItem("userToken");
-    router.push("/");
+    updateCurrentPage("profile")
   };
   return (
     <div className="bg-pink-50 shadow flex justify-center items-center fixed top-0 w-full z-50">
@@ -25,9 +27,9 @@ const ProfileHeader = () => {
             <Link href="/" className="text-2xl hover:text-pink-300">
               <FaRegHeart />
             </Link>
-            <Link href="/messagelist" className="text-2xl hover:text-pink-300">
+            <div onClick={()=>updateCurrentPage("messagelist")} className="text-2xl cursor-pointer hover:text-pink-300">
               <AiFillMessage />
-            </Link>
+            </div>
           </div>
         </div>
       </div>

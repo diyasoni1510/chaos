@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { useRouteContext } from "@/context";
 
 const schema = Yup.object().shape({
   username: Yup.string().required(),
@@ -20,6 +21,7 @@ const LoginPage = () => {
   const [password,setPassword] = useState("")
 
   const router = useRouter();
+  const { updateCurrentPage } = useRouteContext()
   useEffect(() => {
     if (username.length > 0 && password.length > 0 ) {
       setButtonDisabled(false);
@@ -38,10 +40,8 @@ const LoginPage = () => {
         });
         console.log(verifylogin.message)
         setLoading(false);
-        localStorage.setItem("username", verifylogin.data.data.username);
-        localStorage.setItem("userId", verifylogin.data.data._id);
-        localStorage.setItem("user", JSON.stringify(verifylogin.data.data));
-      router.push(`/profile/${verifylogin.data.data.username}`);
+        updateCurrentPage("profile")
+        localStorage.setItem("LoggedInUser", JSON.stringify(verifylogin.data.data));
       } catch (error) {
         toast.error(error.response.data.message)
         console.log(error.response.data.message)

@@ -10,6 +10,7 @@ import useSWR from "swr";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { useRouteContext } from "@/context";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -21,6 +22,7 @@ const MessageList = () => {
 
   const { data, error } = useSWR("/api/users/allusers", fetcher);
 
+  const { updateCurrentPage } = useRouteContext()
   const searchUser = async () => {
     console.log(searchedUser);
     try {
@@ -46,7 +48,7 @@ const MessageList = () => {
         <div className="flex justify-center items-center space-x-4">
           <IoIosArrowBack
             className="text-2xl cursor-pointer"
-            onClick={() => router.back()}
+            onClick={() => updateCurrentPage("profile")}
           />
           <p className="font-semibold">User name</p>
         </div>

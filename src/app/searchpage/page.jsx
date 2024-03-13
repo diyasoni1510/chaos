@@ -7,9 +7,11 @@ import axios from "axios";
 import { CiSearch } from "react-icons/ci";
 import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
+import { useRouteContext } from "@/context";
 
 const SearchPage = () => {
-  const router = useRouter();
+  // const router = useRouter();
+  const { updateCurrentPage } = useRouteContext()
   const [loading,setLoading] = useState(false)
   const [allUsers, setAllUsers] = useState([]);
   const [searchVal, setSearchVal] = useState("");
@@ -54,7 +56,7 @@ const SearchPage = () => {
           <IoIosArrowBack
             className="text-2xl cursor-pointer"
             onClick={() => {
-              router.back();
+              updateCurrentPage("profile")
             }}
           />
           <p>Search</p>

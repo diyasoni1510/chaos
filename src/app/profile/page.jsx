@@ -1,44 +1,22 @@
-"use client"
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { useRouter } from 'next/navigation'
-import toast from 'react-hot-toast'
+import React from 'react'
+import ProfileHeader from "./profileheader/page"
+import StorySection from "./storysection/page"
+import PostSection from "./postsection/page"
+import ProfileFooter from "./profilefooter/page"
 
-const ProfilePage = () => {
-  const router = useRouter()
 
-  const [data,setData] = useState(null)
-
-  const getUserDetails = async () => {
-    const res = await axios.get("/api/users/userprofile")
-    console.log(res.data)
-    setData(res.data.data.username)
-  }
-  useEffect(()=>{
-    getUserDetails()
-  },[])
-
-  useEffect(() => {
-    if (data) {
-      router.push(`/profile/${data}`); 
-    }
-  }, [data]);
-  const logout = async () =>{
-    try {
-       await axios.get("api/users/logout")
-       toast.success("Logout successfull")
-       router.push("/login")
-    } catch (error) {
-      console.log(error.mesage)
-      toast.error(error.message)
-    }
-  }
+const UserProfile = () => {
   return (
     <>
-    <div>ProfilePage</div>
-    <button onClick={logout}>Logout</button>
+    <ProfileHeader/>
+    <div className='mt-16 flex flex-col w-full relative'>
+      <StorySection />
+      <PostSection />
+    </div>
+    <ProfileFooter /> 
     </>
   )
 }
 
-export default ProfilePage
+
+export default UserProfile

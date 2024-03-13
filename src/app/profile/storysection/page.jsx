@@ -9,13 +9,13 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 const StorySection = () => {
   const [openModal, setopenModal] = useState(null);
-  const [allUsers,setAllUsers] = useState([])
+  // const [allUsers,setAllUsers] = useState([])
   const [loading,setLoading] = useState(false)
 
-  // const { data, error } = useSWR('/api/users/allusers', fetcher)
+  const { data:allUsers, error } = useSWR('/api/users/allusers', fetcher)
 
-  // if (error) return <div>Failed to load</div>
-  // if (!data) return <div className="flex p-3 space-x-6 overflow-x-scroll"><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-gray-200 cursor-pointer "></div><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-gray-200 cursor-pointer "></div><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-gray-200 cursor-pointer "></div><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-gray-200 cursor-pointer "></div><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-gray-200 cursor-pointer "></div></div>
+  if (error) return <div>Failed to load</div>
+  if (!allUsers) return <div className="flex p-3 space-x-6 overflow-x-scroll"><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-gray-200 cursor-pointer "></div><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-gray-200 cursor-pointer "></div><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-gray-200 cursor-pointer "></div><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-gray-200 cursor-pointer "></div><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-gray-200 cursor-pointer "></div></div>
 
 
   const getAllUsers = async() =>{
@@ -29,14 +29,14 @@ const StorySection = () => {
       console.log(error)
     }
   }
-  useEffect(()=>{
-    getAllUsers()
-  },[])
+  // useEffect(()=>{
+  //   getAllUsers()
+  // },[])
 
   return (
     <div className="w-full border border-b-gray-400 md:border-gray-400 md:rounded-md ">
       <div className="flex p-3 space-x-6 overflow-x-scroll">
-        {allUsers?.map((user) => {
+        {allUsers?.data?.map((user) => {
           return (
             <div key={user._id}>
               <div
