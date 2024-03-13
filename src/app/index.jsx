@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect, } from "react";
-import LogInOrSignuppage from "./loginsignup/page";
+import LogInOrSignuppage from "./components/loginsignup";
 import { Toaster } from "react-hot-toast";
 import { useRouteContext } from "../context/index";
-import MyProfilePage from "./profilepage/page";
-import ProfilePage from "./profile/page";
-import SearchPage from "./searchpage/page";
-import MessageListPage from "./messagelist/page"
-import EditProfile from "./setdetails/page"
+import MyProfilePage from "./components/profilepage";
+import ProfilePage from "./components/profile/page";
+import SearchPage from "./components/searchpage";
+import MessageListPage from "./components/messagelist"
+import EditProfile from "./components/setdetails"
 
 
 const Index = () => {

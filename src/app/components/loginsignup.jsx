@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
-import Login from "../login/page"
-import Signup from "../signup/page"
+import Login from "./login/page"
+import Signup from "./signup/page"
 import { Toaster } from "react-hot-toast";
 
 const Page = () => {

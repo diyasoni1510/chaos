@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import ProfileFooter from "../profile/profilefooter/page";
+import ProfileFooter from "./profile/profilefooter/page";
 import { IoIosArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import axios from "axios";
