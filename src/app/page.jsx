@@ -1,16 +1,13 @@
 "use client"
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Index from "./index";
 import { RouteProvider } from "../context";
 
 const Tabs = () => {
-  const [CurrentPage, setCurrentPage] = useState();
+  const [CurrentPage, setCurrentPage] = useState("login");
   const updateCurrentPage = (page) => {
     setCurrentPage(page);
   };
-  useEffect(()=>{
-    setCurrentPage(localStorage?.getItem("currentpage"))
-  },[CurrentPage])
   return (
     <>
       <RouteProvider
