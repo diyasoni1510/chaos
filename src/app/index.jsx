@@ -11,7 +11,7 @@ import MessageListPage from "./messagelist/page"
 import EditProfile from "./setdetails/page"
 
 
-const index = () => {
+const Index = () => {
   const { CurrentPage } = useRouteContext();
   console.log(CurrentPage)
   useEffect(()=>{
@@ -41,4 +41,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
