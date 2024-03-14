@@ -142,10 +142,10 @@ const MessagePage = () => {
           </div>
         </div>
         <div className="display-msgs p-2 h-[580px] overflow-y-scroll">
-          {/* <p className="bg-pink-300 w-fit px-4 py-2 rounded-3xl mb-2 float-left clear-both">
+          {/* <p className="bg-blue-300 w-fit px-4 py-2 rounded-3xl mb-2 float-left clear-both">
             hey..
           </p>
-          <p className="bg-pink-300 w-fit px-4 py-2 rounded-3xl mb-2 float-right clear-both">
+          <p className="bg-blue-300 w-fit px-4 py-2 rounded-3xl mb-2 float-right clear-both">
             hey..
           </p> */}
           {allMessages &&
@@ -154,7 +154,7 @@ const MessagePage = () => {
               {
               return (
                 <p
-                  className="bg-pink-300 w-fit px-4 py-2 rounded-3xl mb-2 float-right clear-both"
+                  className="bg-blue-300 w-fit px-4 py-2 rounded-3xl mb-2 float-right clear-both"
                   key={index}
                 >
                   {message.message}
@@ -164,7 +164,7 @@ const MessagePage = () => {
               else{
                 return(
                   <p
-                  className="bg-pink-300 w-fit px-4 py-2 rounded-3xl mb-2 float-left clear-both"
+                  className="bg-blue-300 w-fit px-4 py-2 rounded-3xl mb-2 float-left clear-both"
                   key={index}
                 >
                   {message.message}

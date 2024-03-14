@@ -17,9 +17,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const ProfilePage = () => {
   const router = useRouter();
-  const [user, setUser] = useState(
-    JSON.parse(localStorage?.getItem("LoggedInUser"))
-  );
+  const [user, setUser] = useState();
   const [posts, setPosts] = useState([]);
   const [pic, setPic] = useState("");
   const [userId, setUserId] = useState("");
@@ -29,17 +27,28 @@ const ProfilePage = () => {
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
   const [edit, setEdit] = useState(false);
-  const { updateCurrentPage } = useRouteContext()
+  const { updateCurrentPage,whoseProfile } = useRouteContext()
 
-  const pathname = usePathname();
-  const username = pathname.split("page/").pop();
+  useEffect(()=>{
+    console.log(whoseProfile)
+    whoseProfile === "myprofile"
+    ?
+    setUser(JSON.parse(localStorage?.getItem("LoggedInUser")))
+    :
+    axios.post("/api/users/getuserfromid", {
+          _id: whoseProfile,
+        }).then(res=>{
+          setUser(res.data.data)
+        }). catch ((error) => {
+        console.log(error);
+      })
+    console.log(whoseProfile)
+  },[])
   const getAllPosts = async () => {
     try {
-      
       const post = await axios.post("/api/posts/getposts", {
-        userId: JSON.parse(localStorage?.getItem("LoggedInUser"))._id,
+        userId: whoseProfile === "myprofile" ? JSON.parse(localStorage?.getItem("LoggedInUser"))._id : whoseProfile,
       });
-      console.log("post"+post)
       setPosts([post.data.data][0]);
     } catch (error) {
       console.log(error);
@@ -58,7 +67,6 @@ const ProfilePage = () => {
       });
       toast.success(`You are now following ${userUserName}`);
       getUserFromId();
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -72,14 +80,13 @@ const ProfilePage = () => {
       });
       toast.success(`${userUserName} Unfollowed successfully`);
       getUserFromId();
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
   return (
     <>
-      <div className="block md:hidden">
+     {user &&  <div className="block md:hidden">
         <div className="flex justify-between items-center py-4 px-2  shadow relative">
           <div className="flex justify-center items-center space-x-4">
             <button
@@ -89,21 +96,21 @@ const ProfilePage = () => {
             >
               <IoIosArrowBack className="text-2xl" />
             </button>
-            <p className="font-semibold">{user.username ? user.username : ""}</p>
+            <p className="font-semibold">{user?.username ? user?.username : ""}</p>
           </div>
-          {userUserName === localStorage?.getItem("username") && (
+          {user?.username === JSON.parse(localStorage?.getItem("LoggedInUser")).username && (
             <div className="flex flex-col justify-center items-center space-x-4 ">
               <HiDotsVertical
                 className="text-2xl"
-                onClick={() => (edit === true ? setEdit(false) : setEdit(true))}
+                onClick={() => setEdit(!edit)}
               />
               {edit === true && (
                 <div className="cursor-pointer absolute top-12 border right-0 bg-white p-2">
-                  <Link
-                    href={`/setdetails/${localStorage?.getItem("username")}`}
+                  <div
+                    className="cursor-pointer" onClick={()=>updateCurrentPage("editprofile")}
                   >
                     Edit profile
-                  </Link>
+                  </div>
                 </div>
               )}
             </div>
@@ -113,7 +120,7 @@ const ProfilePage = () => {
           <div className="flex-shrink-0 w-[60px] h-[60px]">
               <img
                 src={user?.pic}
-                className=" h-full w-full rounded-full object-cover ring-1 ring-pink-400 ring-offset-2"
+                className=" h-full w-full rounded-full object-cover ring-1 ring-blue-400 ring-offset-2"
               ></img>
           </div>
           <div className="flex w-full space-x-4 justify-center">
@@ -122,43 +129,42 @@ const ProfilePage = () => {
               <p className="text-sm text-gray-500">Posts</p>
             </div>
             <div className="text-center">
-              <Link href={`/follow/${username}`}>
-                <p className="font-semibold">{user.followers.length}</p>
+              <Link href="#">
+                <p className="font-semibold">{user?.followers.length}</p>
                 <p className="text-sm text-gray-500">Followers</p>
               </Link>
             </div>
             <div className="text-center">
-              <Link href={`/follow/${username}`}>
-                <p className="font-semibold">{user.following.length}</p>
+              <Link href="#">
+                <p className="font-semibold">{user?.following.length}</p>
                 <p className="text-sm text-gray-500">Following</p>
               </Link>
             </div>
           </div>
         </div>
         <div className="flex flex-col pl-3 px-2 text-sm">
-          <p className=" pt-2">{user.username}</p>
-          <p className="text-gray-400 text-sm">{user.name}</p>
-          <p className="text-xs">{user.bio}</p>
+          <p className=" pt-2">{user?.username}</p>
+          <p className="text-gray-400 text-sm">{user?.name}</p>
+          <p className="text-xs">{user?.bio}</p>
           <p className="text-xs cursor-pointer text-sky-400">
             youtube.com/@username
           </p>
         </div>
         <div className="flex px-2 my-3 justify-between">
-          {console.log(user.username,JSON.parse(localStorage?.getItem("LoggedInUser")).username)}
-          {user.username === JSON.parse(localStorage?.getItem("LoggedInUser")).username ? (
-            <button className="bg-pink-300 text-white font-semibold py-1 px- rounded-md px-6">
+          {user?.username === JSON.parse(localStorage?.getItem("LoggedInUser")).username ? (
+            <button className="bg-blue-300 text-white font-semibold py-1 px- rounded-md px-6">
               Edit Profile
             </button>
           ) : followers.includes(localStorage?.getItem("userId")) ? (
             <button
-              className="bg-pink-300 text-white font-semibold py-1 px-10 rounded-md"
+              className="bg-blue-300 text-white font-semibold py-1 px-10 rounded-md"
               onClick={() => UnfollowUser(userId)}
             >
               Unfollow
             </button>
           ) : (
             <button
-              className="bg-pink-300 text-white font-semibold py-1 px-10 rounded-md"
+              className="bg-blue-300 text-white font-semibold py-1 px-10 rounded-md"
               onClick={() => followUser(userId)}
             >
               Follow
@@ -197,7 +203,7 @@ const ProfilePage = () => {
             })}
           </div>
         </div>
-      </div>
+      </div>}
       <Toaster />
     </>
   );

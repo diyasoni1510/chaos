@@ -17,7 +17,7 @@ const Page = () => {
               <li className="-mb-px mr-2 last:mr-0 flex-auto text-center rounded-xl">
                 <a
                   className=
-                    "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal bg-pink-400 text-white" 
+                    "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal bg-blue-400 text-white" 
                     
                   onClick={e => {
                     e.preventDefault();
@@ -33,7 +33,7 @@ const Page = () => {
               <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
                 <a
                   className=
-                    "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal  bg-pink-400 text-white"
+                    "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal  bg-blue-400 text-white"
                   onClick={e => {
                     e.preventDefault();
                     setOpenTab(2);

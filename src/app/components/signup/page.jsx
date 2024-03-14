@@ -83,7 +83,7 @@ const SignupPage = () => {
               placeholder="Username"
               value={username}
               onChange={(e)=>setUsername(e.target.value)}
-              className="p-2 rounded-md outline-none placeholder:text-sm bg-pink-50 focus:bg-white hover:bg-white placeholder:text-gray-600 focus:placeholder:text-transparent hover:placeholder:text-transparent ring-1 ring-offset-2 ring-pink-400 my-2 "
+              className="p-2 rounded-md outline-none placeholder:text-sm bg-blue-50 focus:bg-white hover:bg-white placeholder:text-gray-600 focus:placeholder:text-transparent hover:placeholder:text-transparent ring-1 ring-offset-2 ring-blue-400 my-2 "
             ></input>
             <br />
             
@@ -98,7 +98,7 @@ const SignupPage = () => {
               placeholder="email"
               value={email}
               onChange={(e)=>setEmail(e.target.value)}
-              className="p-2 rounded-md outline-none placeholder:text-sm bg-pink-50 focus:bg-white hover:bg-white placeholder:text-gray-600 focus:placeholder:text-transparent hover:placeholder:text-transparent ring-1 ring-offset-2 ring-pink-400 my-2 "
+              className="p-2 rounded-md outline-none placeholder:text-sm bg-blue-50 focus:bg-white hover:bg-white placeholder:text-gray-600 focus:placeholder:text-transparent hover:placeholder:text-transparent ring-1 ring-offset-2 ring-blue-400 my-2 "
             ></input>
             <br />
             <label htmlFor="password" className="text-gray-600 font-semibold">
@@ -112,7 +112,7 @@ const SignupPage = () => {
               placeholder="password"
               value={password}
               onChange={(e)=>setPassword(e.target.value)}
-              className="p-2 rounded-md outline-none placeholder:text-sm bg-pink-50 focus:bg-white hover:bg-white placeholder:text-gray-600 focus:placeholder:text-transparent hover:placeholder:text-transparent ring-1 ring-offset-2 ring-pink-400 my-2 "
+              className="p-2 rounded-md outline-none placeholder:text-sm bg-blue-50 focus:bg-white hover:bg-white placeholder:text-gray-600 focus:placeholder:text-transparent hover:placeholder:text-transparent ring-1 ring-offset-2 ring-blue-400 my-2 "
             ></input>
             {password.length < 6 && <span className="text-xs text-red-500">
               password must contain 6 digits
@@ -135,13 +135,13 @@ const SignupPage = () => {
               <button
                 onClick={submitFrom}
                 disabled={buttonDisabled}
-                className="flex justify-center items-center  text-center bg-pink-400 text-white w-[235px] py-2 rounded-md font-semibold transform transition disabled:bg-pink-300 "
+                className="flex justify-center items-center  text-center bg-blue-400 text-white w-[235px] py-2 rounded-md font-semibold transform transition disabled:bg-blue-300 "
               >
                 {loading || picUploading === true && (
                   <div role="status">
                     <svg
                       aria-hidden="true"
-                      className="inline w-5 h-5 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-pink-600"
+                      className="inline w-5 h-5 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                       viewBox="0 0 100 101"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -162,7 +162,7 @@ const SignupPage = () => {
             </div>
           </form>
           <div className="mt-2 text-center">
-            <Link href="/" className="text-pink-400 font-semibold">
+            <Link href="/" className="text-blue-400 font-semibold">
               Forget password?
             </Link>
           </div>
@@ -170,7 +170,7 @@ const SignupPage = () => {
             <span className="font-semibold text-gray-600">
               Already have an account ?
             </span>
-            <Link href="/login" className="text-pink-400 font-semibold">
+            <Link href="/login" className="text-blue-400 font-semibold">
               Log In
             </Link>
           </div>

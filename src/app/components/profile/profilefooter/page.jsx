@@ -15,7 +15,7 @@ import { useRouteContext } from "@/context";
 
 const ProfileFooter = () => {
   const router = useRouter();
-  const { updateCurrentPage } = useRouteContext()
+  const { updateCurrentPage, updateWhoseProfile } = useRouteContext()
   const [isUpload, setIsUpload] = useState(false);
   const [loading, setLoading] = useState(false);
   const [picUploading, setPicUploading] = useState(false);
@@ -127,13 +127,13 @@ const ProfileFooter = () => {
               <button
                 onClick={submitPost}
                 type="submit"
-                className="flex justify-center items-center  text-center bg-pink-400 text-white w-[235px] py-2 rounded-md font-semibold transform transition disabled:bg-pink-300 "
+                className="flex justify-center items-center  text-center bg-blue-400 text-white w-[235px] py-2 rounded-md font-semibold transform transition disabled:bg-blue-300 "
               >
                 {loading === true && (
                   <div role="status">
                     <svg
                       aria-hidden="true"
-                      className="inline w-5 h-5 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-pink-600"
+                      className="inline w-5 h-5 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                       viewBox="0 0 100 101"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -191,8 +191,9 @@ const ProfileFooter = () => {
             Edit profile
           </button>
           <button
-            onClick={() =>
+            onClick={() =>{
              updateCurrentPage("myprofile")
+            updateWhoseProfile("myprofile")}
             }
           >
             Profile
@@ -202,7 +203,7 @@ const ProfileFooter = () => {
               <div role="status">
                 <svg
                   aria-hidden="true"
-                  className="inline w-5 h-5 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-pink-600"
+                  className="inline w-5 h-5 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"

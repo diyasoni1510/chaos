@@ -188,7 +188,7 @@ const Follow = () => {
                       {isMyProfile ? (
                         <button
                           onClick={() => removeFollowers(follower._id)}
-                          className="bg-pink-300 text-white font-semibold py-1 px-5 text-sm rounded-md"
+                          className="bg-blue-300 text-white font-semibold py-1 px-5 text-sm rounded-md"
                         >
                           Remove
                         </button>
@@ -197,12 +197,12 @@ const Follow = () => {
                         ).following.includes(following._id) ? (
                         <button
                           onClick={() => UpdateFollower(follower._id,false)}
-                          className="bg-pink-300 text-white font-semibold py-1 px-5 text-sm rounded-md"
+                          className="bg-blue-300 text-white font-semibold py-1 px-5 text-sm rounded-md"
                         >
                           Unfollow
                         </button>
                       ) : (
-                        <button className="bg-pink-300 text-white font-semibold py-1 px-5 text-sm rounded-md" onClick={()=>{ UpdateFollower(follower._id,true) }}>
+                        <button className="bg-blue-300 text-white font-semibold py-1 px-5 text-sm rounded-md" onClick={()=>{ UpdateFollower(follower._id,true) }}>
                           Follow
                         </button>
                       )}
@@ -246,12 +246,12 @@ const Follow = () => {
                       following.followers.includes(localStorage?.getItem("userId")) ? (
                         <button
                           onClick={() => UpdateFollower(following._id,false)}
-                          className="bg-pink-300 text-white font-semibold py-1 px-5 text-sm rounded-md"
+                          className="bg-blue-300 text-white font-semibold py-1 px-5 text-sm rounded-md"
                         >
                           Unfollow
                         </button>
                       ) : (
-                        <button className="bg-pink-300 text-white font-semibold py-1 px-5 text-sm rounded-md" onClick={()=> UpdateFollower(following._id,true)}>
+                        <button className="bg-blue-300 text-white font-semibold py-1 px-5 text-sm rounded-md" onClick={()=> UpdateFollower(following._id,true)}>
                           Follow
                         </button>
                       )}

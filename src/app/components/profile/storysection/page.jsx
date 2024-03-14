@@ -15,7 +15,7 @@ const StorySection = () => {
   const { data:allUsers, error } = useSWR('/api/users/allusers', fetcher)
 
   if (error) return <div>Failed to load</div>
-  if (!allUsers) return <div className="flex p-3 space-x-6 overflow-x-scroll"><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-gray-200 cursor-pointer "></div><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-gray-200 cursor-pointer "></div><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-gray-200 cursor-pointer "></div><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-gray-200 cursor-pointer "></div><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-gray-200 cursor-pointer "></div></div>
+  if (!allUsers) return <div className="flex p-3 space-x-6 overflow-x-scroll"><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-gray-200 cursor-pointer "></div><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-gray-200 cursor-pointer "></div><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-gray-200 cursor-pointer "></div><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-gray-200 cursor-pointer "></div><div className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-gray-200 cursor-pointer "></div></div>
 
 
   const getAllUsers = async() =>{
@@ -40,7 +40,7 @@ const StorySection = () => {
           return (
             <div key={user._id}>
               <div
-                className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-cover bg-center bg-no-repeat cursor-pointer "
+                className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-cover bg-center bg-no-repeat cursor-pointer "
                 style={{ backgroundImage: `url(${user.pic})` }}
                 id={user._id}
                 onClick={() => setopenModal(user._id)}

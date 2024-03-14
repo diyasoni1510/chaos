@@ -8,11 +8,15 @@ const Tabs = () => {
   const updateCurrentPage = (page) => {
     setCurrentPage(page);
   };
+  const [whoseProfile, setWhoseProfile] = useState("");
+  const updateWhoseProfile = (profile) => {
+    setWhoseProfile(profile);
+  };
   return (
     <>
       <RouteProvider
         value={{
-          CurrentPage,updateCurrentPage
+          CurrentPage,updateCurrentPage,whoseProfile,updateWhoseProfile
         }}
       >
         <Index />

@@ -73,7 +73,7 @@ const MessageList = () => {
       </div>
       <div className="flex p-2 justify-between m-2">
         <div>Message</div>
-        <div className="text-pink-400">Requests</div>
+        <div className="text-blue-400">Requests</div>
       </div>
       {searchedUserResult && 
       <div>
@@ -84,7 +84,7 @@ const MessageList = () => {
             <div>
               <img
                 src={searchedUserResult.pic}
-                className="w-[40px] h-[40px] rounded-full object-cover ring-1 ring-offset-2 ring-pink-300"
+                className="w-[40px] h-[40px] rounded-full object-cover ring-1 ring-offset-2 ring-blue-300"
               />
             </div>
             <div className="text-sm">
@@ -112,7 +112,7 @@ const MessageList = () => {
                     <div>
                       <img
                         src={user.pic}
-                        className="w-[40px] h-[40px] rounded-full object-cover ring-1 ring-offset-2 ring-pink-300"
+                        className="w-[40px] h-[40px] rounded-full object-cover ring-1 ring-offset-2 ring-blue-300"
                       />
                     </div>
                     <div className="text-sm">

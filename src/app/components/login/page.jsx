@@ -64,7 +64,7 @@ const LoginPage = () => {
               placeholder="Username"
               value={username}
               onChange={(e)=>setUsername(e.target.value)}
-              className="p-2 rounded-md outline-none placeholder:text-sm bg-pink-50 focus:bg-white hover:bg-white placeholder:text-gray-600 focus:placeholder:text-transparent hover:placeholder:text-transparent ring-1 ring-offset-2 ring-pink-400 my-2 "
+              className="p-2 rounded-md outline-none placeholder:text-sm bg-blue-50 focus:bg-white hover:bg-white placeholder:text-gray-600 focus:placeholder:text-transparent hover:placeholder:text-transparent ring-1 ring-offset-2 ring-blue-400 my-2 "
             ></input>
             <br></br>
             <br />
@@ -79,7 +79,7 @@ const LoginPage = () => {
               placeholder="password"
               value={password}
               onChange={(e)=>setPassword(e.target.value)}
-              className="p-2 rounded-md outline-none placeholder:text-sm bg-pink-50 focus:bg-white hover:bg-white placeholder:text-gray-600 focus:placeholder:text-transparent hover:placeholder:text-transparent ring-1 ring-offset-2 ring-pink-400 mt-2 "
+              className="p-2 rounded-md outline-none placeholder:text-sm bg-blue-50 focus:bg-white hover:bg-white placeholder:text-gray-600 focus:placeholder:text-transparent hover:placeholder:text-transparent ring-1 ring-offset-2 ring-blue-400 mt-2 "
             ></input>
             <br></br>
             <br />
@@ -87,13 +87,13 @@ const LoginPage = () => {
               <button
                 disabled={buttonDisabled}
                 onClick={submitForm}
-                className="flex justify-center items-center  text-center bg-pink-400 text-white w-[235px] py-2 rounded-md font-semibold transform transition disabled:bg-pink-300 "
+                className="flex justify-center items-center  text-center bg-blue-400 text-white w-[235px] py-2 rounded-md font-semibold transform transition disabled:bg-blue-300 "
               >
                 {loading === true && (
                   <div role="status">
                     <svg
                       aria-hidden="true"
-                      className="inline w-5 h-5 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-pink-600"
+                      className="inline w-5 h-5 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                       viewBox="0 0 100 101"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +114,7 @@ const LoginPage = () => {
             </div>
           </form>
           <div className="mt-2 text-center">
-            <Link href="/" className="text-pink-400 font-semibold">
+            <Link href="/" className="text-blue-400 font-semibold">
               Forget password?
             </Link>
           </div>
@@ -122,7 +122,7 @@ const LoginPage = () => {
             <span className="font-semibold text-gray-600">
               Don&apos;t have an account ?
             </span>
-            <Link href="/signup" className="text-pink-400 font-semibold">
+            <Link href="/signup" className="text-blue-400 font-semibold">
               Sign Up
             </Link>
           </div>

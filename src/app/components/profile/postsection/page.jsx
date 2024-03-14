@@ -109,7 +109,7 @@ const PostSection = () => {
             <div className=" w-full rounded-sm md:border border-gray-200 md:p-2">
               <div className="flex items-center justify-between mt-3">
                 <div className="flex space-x-3 md:space-x-4 items-center">
-                  <div className="w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-cover bg-center bg-no-repeat">
+                  <div className="w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-cover bg-center bg-no-repeat">
                     <img
                       src={post.userDetails[0]?.pic}
                       className="w-full h-full object-cover rounded-full"
@@ -129,12 +129,12 @@ const PostSection = () => {
                   {post.userDetails[0].followers.includes(
                     localStorage?.getItem("userId")
                   ) ? (
-                    <button className="text-sm md:text-base bg-white border-2 border-pink-400 text-pink-400 px-2 py-1 rounded-md font-semibold transform transition hover:bg-white hover:text-pink-400 disabled:bg-pink-300 hover:scale-95">
+                    <button className="text-sm md:text-base bg-white border-2 border-blue-400 text-blue-400 px-2 py-1 rounded-md font-semibold transform transition hover:bg-white hover:text-blue-400 disabled:bg-blue-300 hover:scale-95">
                       Following
                     </button>
                   ) : (
                     <button
-                      className="text-sm md:text-base bg-pink-400 text-white px-2 py-1 rounded-md font-semibold transform transition hover:bg-white hover:text-pink-400 disabled:bg-pink-300 hover:scale-95"
+                      className="text-sm md:text-base bg-blue-400 text-white px-2 py-1 rounded-md font-semibold transform transition hover:bg-white hover:text-blue-400 disabled:bg-blue-300 hover:scale-95"
                       onClick={() => followUser(post.userId)}
                     >
                       Follow
@@ -230,7 +230,7 @@ const PostSection = () => {
                 <div className="mt-4 flex justify-between pb-2">
                   <div className="flex space-x-4 items-center ">
                     <div
-                      className="w-[20px] h-[20px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-cover bg-center bg-no-repeat"
+                      className="w-[20px] h-[20px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-cover bg-center bg-no-repeat"
                       style={{
                         backgroundImage: `url(${post.userDetails[0]?.pic})`,
                       }}
@@ -262,7 +262,7 @@ const PostSection = () => {
                   <div className="modal-box w-full h-full flex flex-col justify-center items-center relative">
                     <div className="w-full absolute bottom-0">
                       <div className=" border-white border-2 w-full h-full flex">
-                        <div className=" bg-pink-50 w-full">
+                        <div className=" bg-blue-50 w-full">
                           <div className="userInfo  border border-b-gray-300 flex justify-start  items-center py-3 ">
                             <div>
                               <IoIosArrowBack
@@ -284,7 +284,7 @@ const PostSection = () => {
                           <div className="post-caption px-2">
                             <div className="flex space-x-3 md:space-x-4 items-center mt-3">
                               <div
-                                className="w-[30px] h-[30px] flex-shrink-0 rounded-full ring-2 ring-offset-2 ring-pink-300 bg-cover bg-center bg-no-repeat"
+                                className="w-[30px] h-[30px] flex-shrink-0 rounded-full ring-2 ring-offset-2 ring-blue-300 bg-cover bg-center bg-no-repeat"
                                 style={{
                                   backgroundImage: `url(${post.userDetails[0]?.pic})`,
                                 }}
@@ -311,7 +311,7 @@ const PostSection = () => {
                                     key={index}
                                   >
                                     <div
-                                      className="w-[30px] h-[30px] flex-shrink-0 rounded-full ring-2 ring-offset-2 ring-pink-300 bg-cover bg-center bg-no-repeat"
+                                      className="w-[30px] h-[30px] flex-shrink-0 rounded-full ring-2 ring-offset-2 ring-blue-300 bg-cover bg-center bg-no-repeat"
                                       style={{
                                         backgroundImage: `url(${comments.userpic})`,
                                       }}
@@ -349,7 +349,7 @@ const PostSection = () => {
                           <div className=" flex justify-between items-center h-[55px] px-2">
                             <div className="flex space-x-4">
                               <div
-                                className="w-[20px] h-[20px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-cover bg-center bg-no-repeat"
+                                className="w-[20px] h-[20px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-cover bg-center bg-no-repeat"
                                 style={{
                                   backgroundImage: `url(${post.userDetails[0]?.pic}})`,
                                 }}
@@ -381,7 +381,7 @@ const PostSection = () => {
             {sharePost === true && (
               <dialog
                 id="share-post"
-                className="modal bg-pink-100 py-5  z-40 fixed top-[40%] shadow-lg bg-opacity-20 w-[300px] "
+                className="modal bg-blue-100 py-5  z-40 fixed top-[40%] shadow-lg bg-opacity-20 w-[300px] "
                 open
               >
                 <div className="modal-box">
@@ -394,7 +394,7 @@ const PostSection = () => {
                             onClick={() => setPostSentTo(user.username)}
                           >
                             <div
-                              className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-pink-300 bg-cover bg-center bg-no-repeat cursor-pointer "
+                              className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-cover bg-center bg-no-repeat cursor-pointer "
                               style={{ backgroundImage: `url(${user.pic})` }}
                               id={user.id}
                             ></div>
@@ -405,7 +405,7 @@ const PostSection = () => {
                   </div>
                   <div className="modal-action py-4 flex justify-between px-2">
                     <button
-                      className="btn bg-pink-400 text-white px-4 py-2 rounded-md font-semibold transform transition hover:bg-white hover:text-pink-400 disabled:bg-pink-300 hover:scale-95"
+                      className="btn bg-blue-400 text-white px-4 py-2 rounded-md font-semibold transform transition hover:bg-white hover:text-blue-400 disabled:bg-blue-300 hover:scale-95"
                       onClick={() => {
                         setSharePost(false);
                       }}
@@ -414,7 +414,7 @@ const PostSection = () => {
                     </button>
                     <button
                       disabled={postSentTo !== "" ? false : true}
-                      className="btn bg-pink-400 text-white px-4 py-2 rounded-md font-semibold transform transition hover:bg-white hover:text-pink-400 disabled:bg-pink-300 hover:scale-95"
+                      className="btn bg-blue-400 text-white px-4 py-2 rounded-md font-semibold transform transition hover:bg-white hover:text-blue-400 disabled:bg-blue-300 hover:scale-95"
                       onClick={() => {
                         toast.success(`Post sent to ${postSentTo}`);
                         setPostSentTo("");

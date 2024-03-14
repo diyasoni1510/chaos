@@ -112,7 +112,7 @@ const SetDeatil = () => {
               onClick={submitForm}
               disabled={buttonDisabled}
                 type="submit"
-                className="bg-pink-400 text-white font-semibold py-1 px-4 rounded-md disabled:bg-pink-300"
+                className="bg-blue-400 text-white font-semibold py-1 px-4 rounded-md disabled:bg-blue-300"
               >
                 Submit
               </button>

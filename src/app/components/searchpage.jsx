@@ -11,27 +11,29 @@ import { useRouteContext } from "@/context";
 
 const SearchPage = () => {
   // const router = useRouter();
-  const { updateCurrentPage } = useRouteContext()
-  const [loading,setLoading] = useState(false)
+  const { updateCurrentPage,updateWhoseProfile } = useRouteContext();
+  const [loading, setLoading] = useState(false);
   const [allUsers, setAllUsers] = useState([]);
   const [searchVal, setSearchVal] = useState("");
   const [searchedUser, setSearchedUser] = useState(null);
+  const [searchedId, setSearchedId] = useState(null);
   const [searchedUserName, setSearchedUserName] = useState(null);
-  const [searchedUserPic,setSearchedUserPic] = useState("")
+  const [searchedUserPic, setSearchedUserPic] = useState("");
 
   const searchUser = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await axios.post("/api/users/searchuser", {
         username: searchVal,
       });
-      setLoading(false)
+      setLoading(false);
       setSearchedUser(response.data.data.username);
+      setSearchedId(response.data.data._id)
       setSearchedUserName(response.data.data.name);
-      setSearchedUserPic(response.data.data.pic)
+      setSearchedUserPic(response.data.data.pic);
     } catch (error) {
-      setLoading(false)
-      toast.error(error.response.data.message)
+      setLoading(false);
+      toast.error(error.response.data.message);
       console.log(error.response.data.message);
     }
   };
@@ -41,7 +43,7 @@ const SearchPage = () => {
       const response = await axios.get("/api/users/allusers");
       setAllUsers(response.data.data);
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.message);
       console.log(error);
       console.log(error.mesage);
     }
@@ -56,7 +58,7 @@ const SearchPage = () => {
           <IoIosArrowBack
             className="text-2xl cursor-pointer"
             onClick={() => {
-              updateCurrentPage("profile")
+              updateCurrentPage("profile");
             }}
           />
           <p>Search</p>
@@ -96,31 +98,45 @@ const SearchPage = () => {
               </div>
             );
           })} */}
-          { loading && <> <div className="bg-gray-100 h-[50px] w-full rounded-md mb-3"></div>
-          <div className="bg-gray-100 h-[50px] w-full rounded-md mb-3"></div>
-          <div className="bg-gray-100 h-[50px] w-full rounded-md mb-3"></div>
-          <div className="bg-gray-100 h-[50px] w-full rounded-md mb-3"></div>
-          <div className="bg-gray-100 h-[50px] w-full rounded-md mb-3"></div> </>}
+          {loading && (
+            <>
+              {" "}
+              <div className="bg-gray-100 h-[50px] w-full rounded-md mb-3"></div>
+              <div className="bg-gray-100 h-[50px] w-full rounded-md mb-3"></div>
+              <div className="bg-gray-100 h-[50px] w-full rounded-md mb-3"></div>
+              <div className="bg-gray-100 h-[50px] w-full rounded-md mb-3"></div>
+              <div className="bg-gray-100 h-[50px] w-full rounded-md mb-3"></div>{" "}
+            </>
+          )}
 
           {searchedUser !== null && (
-            <Link href={`/profilepage/${searchedUser}`}>
-            <div className="flex space-x-3 mb-2">
-              <div className="w-[40px] h-[40px] ">
-                <img src={searchedUserPic} className="w-full h-full object-cover rounded-full"></img>
-              </div>
-              <div className="text-sm">
-                <p>{searchedUser ? searchedUser : ""}</p>
-                <p className=" text-gray-500">
-                  {searchedUserName ? searchedUserName : "name"}
-                </p>
+            <div
+              className="cursor-pointer"
+              onClick={() => {
+                updateCurrentPage("myprofile");
+                updateWhoseProfile(searchedId);
+              }}
+            >
+              <div className="flex space-x-3 mb-2">
+                <div className="w-[40px] h-[40px] ">
+                  <img
+                    src={searchedUserPic}
+                    className="w-full h-full object-cover rounded-full"
+                  ></img>
+                </div>
+                <div className="text-sm">
+                  <p>{searchedUser ? searchedUser : ""}</p>
+                  <p className=" text-gray-500">
+                    {searchedUserName ? searchedUserName : "name"}
+                  </p>
+                </div>
               </div>
             </div>
-            </Link>
           )}
         </div>
       </div>
       <ProfileFooter />
-      <Toaster/>
+      <Toaster />
     </>
   );
 };
