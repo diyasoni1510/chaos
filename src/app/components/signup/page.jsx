@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import { useRouteContext } from "@/context";
 
 const schema = Yup.object().shape({
   username: Yup.string().required(),
@@ -20,7 +21,7 @@ const SignupPage = () => {
   const [loading, setLoading] = useState(false);
   const [picUploading, setPicUploading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const router = useRouter();
+  const { updateCurrentPage } = useRouteContext()
   const submitFrom = async(e) => {
     e.preventDefault();
     console.log(username, password, email, pic);
@@ -31,10 +32,8 @@ const SignupPage = () => {
         if (response.data.status === 201) {
           setLoading(false)
           toast.success("User Signed up succesfully");
-          localStorage?.setItem("username", response.data.data.username);
-          localStorage?.setItem("userId", response.data.data._id);
-        localStorage?.setItem("user", JSON.stringify(response.data.data));
-          router.push(`/profile/${username}`);
+          updateCurrentPage("profile")
+        localStorage?.setItem("LoggedInUser", JSON.stringify(response.data.data));
         } else {
           toast.error("User already exists");
         }

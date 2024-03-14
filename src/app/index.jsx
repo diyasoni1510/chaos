@@ -19,7 +19,7 @@ const Index = () => {
   })
   return (
     <>
-     { !isLogin === true ? (
+     { !isLogin === true || CurrentPage === "login" ? (
         <LogInOrSignuppage />
       ) : CurrentPage === "profile" ? (
         <ProfilePage />

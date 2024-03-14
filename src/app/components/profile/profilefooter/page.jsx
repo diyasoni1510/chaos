@@ -34,11 +34,8 @@ const ProfileFooter = () => {
           "Cache-Control": "no-cache",
         },
       });
-      localStorage?.removeItem("username");
-      localStorage?.removeItem("userId");
-      localStorage?.removeItem("user");
-      setLogoutLoading(false);
-      updateCurrentPage("profile")
+      localStorage?.removeItem("LoggedInUser");
+      updateCurrentPage("login")
     } catch (error) {
       console.log(error);
       console.log(error.mesage);
