@@ -113,7 +113,7 @@ const MessagePage = () => {
   return (
     <>
       <div
-        className="h-[600px] bg-center bg-cover"
+        className="h-[620px] bg-center bg-cover"
         style={{
           backgroundImage: `url(${bgTheme})`,
         }}
@@ -202,10 +202,9 @@ const MessagePage = () => {
               >
                 <div
                   className="w-5 h-5 rounded-full"
-                  style={{
-                    backgroundImage: `url(${option.theme})`,
-                  }}
-                ></div>
+                >
+                    <img src={option.theme} alt="" className="h-full object-cover rounded-full w-full" />
+                </div>
                 <p>{option.themeName}</p>
               </div>
             );
