@@ -12,6 +12,7 @@ import Link from "next/link";
 import toast, { Toaster } from "react-hot-toast";
 import useSWR from "swr";
 import { useRouteContext } from "@/context";
+import Follow from "./followlist"
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -27,16 +28,12 @@ const ProfilePage = () => {
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
   const [edit, setEdit] = useState(false);
-  const { updateCurrentPage,whoseProfile } = useRouteContext()
+  const { updateCurrentPage,whoseProfile,updateMessageWithWhom } = useRouteContext()
 
   useEffect(()=>{
     console.log(whoseProfile)
-    whoseProfile === "myprofile"
-    ?
-    setUser(JSON.parse(localStorage?.getItem("LoggedInUser")))
-    :
     axios.post("/api/users/getuserfromid", {
-          _id: whoseProfile,
+          _id: whoseProfile === "myprofile" ? JSON.parse(localStorage?.getItem("LoggedInUser"))._id : whoseProfile,
         }).then(res=>{
           setUser(res.data.data)
         }). catch ((error) => {
@@ -58,28 +55,28 @@ const ProfilePage = () => {
     // getUserFromId();
     getAllPosts()
   }, []);
-  const followUser = async (follow) => {
+  const followUser = async () => {
     try {
       const response = await axios.post("/api/users/updatefollowers", {
-        _id: localStorage?.getItem("userId"),
-        follow,
+        _id: JSON.parse(localStorage?.getItem("LoggedInUser"))._id,
+        follow:whoseProfile,
         add: true,
       });
       toast.success(`You are now following ${userUserName}`);
-      getUserFromId();
+      // getUserFromId();
     } catch (error) {
       console.log(error);
     }
   };
-  const UnfollowUser = async (user) => {
+  const UnfollowUser = async () => {
     try {
       const response = await axios.post("/api/users/updatefollowers", {
-        _id: localStorage?.getItem("userId"),
-        follow: user,
+        _id: JSON.parse(localStorage?.getItem("LoggedInUser"))._id,
+        follow: whoseProfile,
         add: false,
       });
       toast.success(`${userUserName} Unfollowed successfully`);
-      getUserFromId();
+      // getUserFromId();
     } catch (error) {
       console.log(error);
     }
@@ -129,16 +126,16 @@ const ProfilePage = () => {
               <p className="text-sm text-gray-500">Posts</p>
             </div>
             <div className="text-center">
-              <Link href="#">
+            <div className="cursor-pointer" onClick={()=>updateCurrentPage("followpage")}>
                 <p className="font-semibold">{user?.followers.length}</p>
                 <p className="text-sm text-gray-500">Followers</p>
-              </Link>
+              </div>
             </div>
             <div className="text-center">
-              <Link href="#">
+              <div className="cursor-pointer" onClick={()=>updateCurrentPage("followpage")}>
                 <p className="font-semibold">{user?.following.length}</p>
                 <p className="text-sm text-gray-500">Following</p>
-              </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -155,27 +152,30 @@ const ProfilePage = () => {
             <button className="bg-blue-300 text-white font-semibold py-1 px- rounded-md px-6">
               Edit Profile
             </button>
-          ) : followers.includes(localStorage?.getItem("userId")) ? (
+          ) : user?.followers.includes(JSON.parse(localStorage?.getItem("LoggedInUser"))._id) ? (
             <button
               className="bg-blue-300 text-white font-semibold py-1 px-10 rounded-md"
-              onClick={() => UnfollowUser(userId)}
+              onClick={() => UnfollowUser()}
             >
               Unfollow
             </button>
           ) : (
             <button
               className="bg-blue-300 text-white font-semibold py-1 px-10 rounded-md"
-              onClick={() => followUser(userId)}
+              onClick={() => followUser()}
             >
               Follow
             </button>
           )}
-          <Link
-            href={`/messagepage/${userUserName}`}
+          <div
+            onClick={()=>{
+              updateCurrentPage("messagepage")
+              updateMessageWithWhom(user?._id)
+            }}
             className="bg-gray-200 font-semibold py-1 px-10 rounded-md"
           >
             Message
-          </Link>
+          </div>
           <button className="bg-gray-200 font-semibold py-1 px-3 rounded-md">
             <IoPersonAddOutline />
           </button>
