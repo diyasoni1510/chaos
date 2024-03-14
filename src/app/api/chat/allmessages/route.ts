@@ -7,7 +7,7 @@ connect()
 
 export async function POST(request:NextRequest){
     try {
-        const {chatId} = await request.json()
+        const { chatId } = await request.json()
         const allMessages = await Chat.findOne({_id:chatId})
         return NextResponse.json({message: "all chats", data: allMessages});
     } catch (error:any) {

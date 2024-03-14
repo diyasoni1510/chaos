@@ -12,11 +12,15 @@ const Tabs = () => {
   const updateWhoseProfile = (profile) => {
     setWhoseProfile(profile);
   };
+  const [messageWithWhom, setMessageWithWhom] = useState("");
+  const updateMessageWithWhom = (profile) => {
+    setMessageWithWhom(profile);
+  };
   return (
     <>
       <RouteProvider
         value={{
-          CurrentPage,updateCurrentPage,whoseProfile,updateWhoseProfile
+          CurrentPage,updateCurrentPage,whoseProfile,updateWhoseProfile,messageWithWhom,updateMessageWithWhom
         }}
       >
         <Index />

@@ -6,25 +6,26 @@ import { IoIosArrowBack } from "react-icons/io";
 import { CgArrowsExchangeV } from "react-icons/cg";
 import { CiCamera } from "react-icons/ci";
 import { mutate } from "swr";
+import { useRouteContext } from "@/context";
 
 const MessagePage = () => {
-  const params = useParams();
-  const MessageWith = params.username;
   const [messageWithUser, setMessageWithUser] = useState();
   const [bgTheme, setBgTheme] = useState();
   const [isOpenThemeBox, setIsOpenThemeBox] = useState(false);
   const [message, setMessage] = useState("");
   const [allMessages, setAllMessages] = useState([]);
   const [userTwo, setUserTwo] = useState();
-  const [chatId,setChatId] = useState()
+  const [chatId,setChatId] = useState("")
   const router = useRouter();
 
-  const userOne = localStorage?.getItem("userId");
+  const userOne = JSON.parse(localStorage?.getItem("LoggedInUser"))._id
+
+  const {updateCurrentPage,messageWithWhom} = useRouteContext()
 
   const getUserInfo = async () => {
     try {
-      const response = await axios.post("/api/users/getuserfromusername", {
-        username: MessageWith,
+      const response = await axios.post("/api/users/getuserfromid", {
+        _id: messageWithWhom,
       });
       setMessageWithUser(response.data.data);
       setUserTwo(response.data.data._id);
@@ -41,6 +42,7 @@ const MessagePage = () => {
         userOne,
         userTwo,
       });
+      console.log(createChat.data.data._id)
       setChatId(createChat.data.data._id)
       console.log(createChat);
     }
@@ -52,7 +54,7 @@ const MessagePage = () => {
       const response = await axios.post("/api/chat/updatechat", {
         chatId,
         message,
-        sender:localStorage?.getItem("userId")
+        sender: JSON.parse(localStorage?.getItem("LoggedInUser"))._id
       });
       getAllMessage()
       setMessage("")
@@ -71,13 +73,16 @@ const MessagePage = () => {
     }
   };
 
+  useEffect(()=>{
+    console.log(messageWithWhom)
+  },[])
   useEffect(() => {
     getUserInfo();
   }, []);
 
   useEffect(() => {
     createChat();
-  }, messageWithUser);
+  }, [messageWithUser]);
 
   useEffect(() => {
     getAllMessage();
@@ -117,7 +122,7 @@ const MessagePage = () => {
           <div className="flex items-center space-x-4">
             <IoIosArrowBack
               className="text-2xl cursor-pointer"
-              onClick={() => router.back()}
+              onClick={() => updateCurrentPage("messagelist")}
             />
             <div
               className="w-8 h-8 rounded-full bg-cover bg-center"
@@ -142,12 +147,6 @@ const MessagePage = () => {
           </div>
         </div>
         <div className="display-msgs p-2 h-[580px] overflow-y-scroll">
-          {/* <p className="bg-blue-300 w-fit px-4 py-2 rounded-3xl mb-2 float-left clear-both">
-            hey..
-          </p>
-          <p className="bg-blue-300 w-fit px-4 py-2 rounded-3xl mb-2 float-right clear-both">
-            hey..
-          </p> */}
           {allMessages &&
             allMessages.map((message, index) => {
               if(message.sender === localStorage?.getItem("userId"))

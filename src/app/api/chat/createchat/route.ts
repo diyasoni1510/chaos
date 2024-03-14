@@ -9,8 +9,15 @@ export async function POST(request:NextRequest) {
     const {userOne,userTwo} = await request.json()
 
     console.log("userOne - ",userOne,"userTwo - ",userTwo)
+    
+    var chatRoom ;
 
-    const chatRoom = await Chat.findOne({users:{$all:[userOne,userTwo]}})
+    if(userOne !== userTwo ){
+        chatRoom = await Chat.findOne({users:{$all:[userOne,userTwo]}})
+    }
+    else if(userOne === userTwo){
+        chatRoom = await Chat.findOne({users:{$eq:[userOne,userTwo]}})
+    }
 
     if(chatRoom)
     return NextResponse.json({message:"chat room exist",data:chatRoom})

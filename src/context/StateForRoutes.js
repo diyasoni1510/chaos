@@ -3,7 +3,9 @@ import { createContext,useContext } from "react";
 export const RouteContext = createContext({
     CurrentPage : "",
     whoseProfile : "",
-    updateWhoseProfile : "",
+    messageWithWhom : "",
+    updateMessageWithWhom : () => {},
+    updateWhoseProfile : () => {},
     updateCurrentPage : () => {},
 })
 

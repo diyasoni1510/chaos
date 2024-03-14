@@ -22,7 +22,7 @@ const MessageList = () => {
 
   const { data, error } = useSWR("/api/users/allusers", fetcher);
 
-  const { updateCurrentPage } = useRouteContext()
+  const { updateCurrentPage,updateMessageWithWhom } = useRouteContext()
   const searchUser = async () => {
     console.log(searchedUser);
     try {
@@ -107,7 +107,10 @@ const MessageList = () => {
                 className="flex p-2 justify-between items-center "
                 key={index}
               >
-                <Link href={`/messagepage/${user.username}`}>
+                <div className="cursor-pointer" onClick={()=>{
+                  updateCurrentPage("messagepage")
+                  updateMessageWithWhom(user._id)
+                }}>
                   <div className="flex space-x-4">
                     <div>
                       <img
@@ -119,7 +122,7 @@ const MessageList = () => {
                       <p>{user.name ? user.name : user.username}</p>
                     </div>
                   </div>
-                </Link>
+                </div>
                 <div>
                   <CiCamera className="text-2xl" />
                 </div>

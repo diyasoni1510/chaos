@@ -8,6 +8,7 @@ import ProfilePage from "./components/profile/page";
 import SearchPage from "./components/searchpage";
 import MessageListPage from "./components/messagelist"
 import EditProfile from "./components/setdetails"
+import MessagePage from "./components/messagepage"
 
 
 const Index = () => {
@@ -29,6 +30,8 @@ const Index = () => {
         <SearchPage />
       ) : CurrentPage === "messagelist" ? (
         <MessageListPage />
+      ) :CurrentPage === "messagepage" ? (
+        <MessagePage />
       ) : CurrentPage === "editprofile" ? (
         <EditProfile />
       ) : (
