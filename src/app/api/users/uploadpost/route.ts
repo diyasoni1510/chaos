@@ -10,8 +10,6 @@ export async function POST(request:NextRequest){
         const reqBody = await request.json()
         const {userId,username,post,caption} = reqBody
 
-        console.log(reqBody)
-        
         const newPost = new Post({
             userId,
             username,

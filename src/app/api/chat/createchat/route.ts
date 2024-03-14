@@ -8,8 +8,6 @@ connect()
 export async function POST(request:NextRequest) {
     const {userOne,userTwo} = await request.json()
 
-    console.log("userOne - ",userOne,"userTwo - ",userTwo)
-    
     var chatRoom ;
 
     if(userOne !== userTwo ){

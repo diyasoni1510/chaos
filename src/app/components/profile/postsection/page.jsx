@@ -69,8 +69,8 @@ const PostSection = () => {
     if (e.key === "Enter") {
       const response = await axios.post("/api/posts/updatecomment", {
         _id: postId,
-        user: localStorage?.getItem("username"),
-        userpic: JSON.parse(localStorage?.getItem("user")).pic,
+        user: JSON.parse(localStorage?.getItem("LoggedInUser")).username,
+        userpic: JSON.parse(localStorage?.getItem("LoggedInUser")).pic,
         comment,
       });
       toast.success("comment sent");
@@ -87,7 +87,7 @@ const PostSection = () => {
   const followUser = async (follow) => {
     try {
       const response = await axios.post("/api/users/updatefollowers", {
-        _id: localStorage?.getItem("userId"),
+        _id: JSON.parse(localStorage?.getItem("LoggedInUser"))._id,
         follow,
         add: true,
       });
@@ -124,24 +124,24 @@ const PostSection = () => {
                     </Link>
                   </div>
                 </div>
-                { post.userId !== localStorage?.getItem("userId") && 
-                <div>
-                  {post.userDetails[0].followers.includes(
-                    localStorage?.getItem("userId")
-                  ) ? (
-                    <button className="text-sm md:text-base bg-white border-2 border-blue-400 text-blue-400 px-2 py-1 rounded-md font-semibold transform transition hover:bg-white hover:text-blue-400 disabled:bg-blue-300 hover:scale-95">
-                      Following
-                    </button>
-                  ) : (
-                    <button
-                      className="text-sm md:text-base bg-blue-400 text-white px-2 py-1 rounded-md font-semibold transform transition hover:bg-white hover:text-blue-400 disabled:bg-blue-300 hover:scale-95"
-                      onClick={() => followUser(post.userId)}
-                    >
-                      Follow
-                    </button>
-                  )}
-                </div>
-      }
+                {post.userId !== localStorage?.getItem("userId") && (
+                  <div>
+                    {post.userDetails[0].followers.includes(
+                      JSON.parse(localStorage?.getItem("LoggedInUser"))._id
+                    ) ? (
+                      <button className="text-sm md:text-base bg-white border-2 border-blue-400 text-blue-400 px-2 py-1 rounded-md font-semibold transform transition hover:bg-white hover:text-blue-400 disabled:bg-blue-300 hover:scale-95">
+                        Following
+                      </button>
+                    ) : (
+                      <button
+                        className="text-sm md:text-base bg-blue-400 text-white px-2 py-1 rounded-md font-semibold transform transition hover:bg-white hover:text-blue-400 disabled:bg-blue-300 hover:scale-95"
+                        onClick={() => followUser(post.userId)}
+                      >
+                        Follow
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div className="mt-3 image">
@@ -151,7 +151,7 @@ const PostSection = () => {
                   onDoubleClick={() => {
                     updateLikes(
                       post._id,
-                      localStorage?.getItem("username"),
+                      JSON.parse(localStorage?.getItem("LoggedInUser")).username,
                       true
                     );
                   }}
