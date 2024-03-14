@@ -12,13 +12,14 @@ import EditProfile from "./components/setdetails"
 
 const Index = () => {
   const { CurrentPage } = useRouteContext();
-  console.log(CurrentPage)
+  const [isLogin,setIsLogin] = useState(false)
   useEffect(()=>{
-    localStorage?.setItem("currentpage",CurrentPage)
-  },[CurrentPage])
+    localStorage?.getItem("LoggedInUser") && setIsLogin(true)
+    console.log(isLogin)
+  })
   return (
     <>
-     { !localStorage?.getItem("LoggedInUser") ? (
+     { !isLogin === true ? (
         <LogInOrSignuppage />
       ) : CurrentPage === "profile" ? (
         <ProfilePage />
