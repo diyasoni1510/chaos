@@ -149,6 +149,7 @@ const MessagePage = () => {
         <div className="display-msgs p-2 h-[580px] overflow-y-scroll">
           {allMessages &&
             allMessages.map((message, index) => {
+                console.log(message.sender)
               if(message.sender === JSON.parse(localStorage?.getItem("LoggedInUser"))._id)
               {
               return (
