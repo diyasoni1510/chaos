@@ -15,12 +15,12 @@ const MessagePage = () => {
   const [message, setMessage] = useState("");
   const [allMessages, setAllMessages] = useState([]);
   const [userTwo, setUserTwo] = useState();
-  const [chatId,setChatId] = useState("")
+  const [chatId, setChatId] = useState("");
   const router = useRouter();
 
-  const userOne = JSON.parse(localStorage?.getItem("LoggedInUser"))._id
+  const userOne = JSON.parse(localStorage?.getItem("LoggedInUser"))._id;
 
-  const {updateCurrentPage,messageWithWhom} = useRouteContext()
+  const { updateCurrentPage, messageWithWhom,updateWhoseProfile } = useRouteContext();
 
   const getUserInfo = async () => {
     try {
@@ -42,8 +42,8 @@ const MessagePage = () => {
         userOne,
         userTwo,
       });
-      console.log(createChat.data.data._id)
-      setChatId(createChat.data.data._id)
+      console.log(createChat.data.data._id);
+      setChatId(createChat.data.data._id);
       console.log(createChat);
     }
   };
@@ -54,10 +54,10 @@ const MessagePage = () => {
       const response = await axios.post("/api/chat/updatechat", {
         chatId,
         message,
-        sender: JSON.parse(localStorage?.getItem("LoggedInUser"))._id
+        sender: JSON.parse(localStorage?.getItem("LoggedInUser"))._id,
       });
-      getAllMessage()
-      setMessage("")
+      getAllMessage();
+      setMessage("");
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -66,16 +66,16 @@ const MessagePage = () => {
 
   const getAllMessage = async () => {
     try {
-      const response = await axios.post("/api/chat/allmessages",{chatId});
+      const response = await axios.post("/api/chat/allmessages", { chatId });
       setAllMessages(response?.data?.data?.messages);
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(()=>{
-    console.log(messageWithWhom)
-  },[])
+  useEffect(() => {
+    console.log(messageWithWhom);
+  }, []);
   useEffect(() => {
     getUserInfo();
   }, []);
@@ -130,7 +130,13 @@ const MessagePage = () => {
                 backgroundImage: `url(${messageWithUser?.pic})`,
               }}
             ></div>
-            <div>
+            <div
+              className="cursor-pointer"
+              onClick={() => {
+                updateCurrentPage("myprofile");
+                updateWhoseProfile(messageWithUser?._id)
+              }}
+            >
               <p>{messageWithUser?.name}</p>
               <p>{messageWithUser?.username}</p>
             </div>
@@ -149,26 +155,27 @@ const MessagePage = () => {
         <div className="display-msgs p-2 h-[580px] overflow-y-scroll">
           {allMessages &&
             allMessages.map((message, index) => {
-              if(message.sender === JSON.parse(localStorage?.getItem("LoggedInUser"))._id)
-              {
-              return (
-                <p
-                  className="bg-blue-300 w-fit px-4 py-2 rounded-3xl mb-2 float-right clear-both"
-                  key={index}
-                >
-                  {message.message}
-                </p>
-              );
-              }
-              else{
-                return(
+              if (
+                message.sender ===
+                JSON.parse(localStorage?.getItem("LoggedInUser"))._id
+              ) {
+                return (
                   <p
-                  className="bg-blue-300 w-fit px-4 py-2 rounded-3xl mb-2 float-left clear-both"
-                  key={index}
-                >
-                  {message.message}
-                </p>
-                )
+                    className="bg-blue-300 w-fit px-4 py-2 rounded-3xl mb-2 float-right clear-both"
+                    key={index}
+                  >
+                    {message.message}
+                  </p>
+                );
+              } else {
+                return (
+                  <p
+                    className="bg-blue-300 w-fit px-4 py-2 rounded-3xl mb-2 float-left clear-both"
+                    key={index}
+                  >
+                    {message.message}
+                  </p>
+                );
               }
             })}
         </div>
@@ -200,10 +207,12 @@ const MessagePage = () => {
                   setBgTheme(option.theme);
                 }}
               >
-                <div
-                  className="w-5 h-5 rounded-full"
-                >
-                    <img src={option.theme} alt="" className="h-full object-cover rounded-full w-full" />
+                <div className="w-5 h-5 rounded-full">
+                  <img
+                    src={option.theme}
+                    alt=""
+                    className="h-full object-cover rounded-full w-full"
+                  />
                 </div>
                 <p>{option.themeName}</p>
               </div>

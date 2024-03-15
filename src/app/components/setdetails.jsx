@@ -7,20 +7,19 @@ import { FiUpload } from "react-icons/fi";
 import { useRouteContext } from "@/context";
 
 const SetDeatil = () => {
-  const inputFileRef  = useRef()
-  const [buttonDisabled,setButtonDisabled] = useState(true)
+  const inputFileRef = useRef();
+  const [buttonDisabled, setButtonDisabled] = useState(true);
   const pathname = usePathname();
-  const [name,setName] = useState("")
-  const [bio,setBio] = useState("")
-  const [pic,setPic] = useState()
-  const [picName,setPicName] = useState()
+  const [name, setName] = useState("");
+  const [bio, setBio] = useState("");
+  const [pic, setPic] = useState();
+  const [picName, setPicName] = useState();
 
   const username = pathname.split("setdetails/").pop();
   const router = useRouter();
-  useEffect(()=>{
-    if(pic || name.length > 0 || bio.length > 0)
-    setButtonDisabled(false)
-  })
+  useEffect(() => {
+    if (pic || name.length > 0 || bio.length > 0) setButtonDisabled(false);
+  });
   const postPic = (pic) => {
     console.log(pic);
     const data = new FormData();
@@ -37,21 +36,28 @@ const SetDeatil = () => {
       });
   };
 
-  const { updateCurrentPage } = useRouteContext()
+  const { updateCurrentPage,updateWhoseProfile } = useRouteContext();
 
-  const submitForm = async(e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
-    console.log(username, name,bio,pic);
-        try {
-        const response = await axios.post("/api/users/updatemoredetails", { username, name,bio,pic})
-        console.log(response)
-        toast.success(response.data.message);
-        router.push(`/profilepage/${localStorage?.getItem("username")}`);
-      } catch (error) {
-        toast.error(error.mesaage);
-        console.log(error);
-      } finally {
-      }
+    console.log(username, name, bio, pic);
+    try {
+      const response = await axios.post("/api/users/updatemoredetails", {
+        username: JSON.parse(localStorage?.getItem("LoggedInUser")).username,
+        name,
+        bio,
+        pic,
+      });
+      console.log(response);
+      toast.success(response.data.message);
+      updateCurrentPage("myprofile")
+      updateWhoseProfile("myprofile")
+      // router.push(`/profilepage/${localStorage?.getItem("username")}`);
+    } catch (error) {
+      toast.error(error.mesaage);
+      console.log(error);
+    } finally {
+    }
   };
   return (
     <>
@@ -68,7 +74,7 @@ const SetDeatil = () => {
                 placeholder="Your name"
                 onChange={(e) => {
                   postPic(e.currentTarget.files[0]);
-                  setPicName(e.currentTarget.files[0])
+                  setPicName(e.currentTarget.files[0]);
                 }}
                 ref={inputFileRef}
               />
@@ -92,7 +98,7 @@ const SetDeatil = () => {
                 className="border-b-2 outline-none"
                 placeholder="Your name"
                 value={name}
-                onChange={(e)=>setName(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="flex flex-col space-y-2">
@@ -104,13 +110,13 @@ const SetDeatil = () => {
                 className="border-b-2 outline-none"
                 placeholder="Anything you wnat to put in bio"
                 value={bio}
-                onChange={(e)=>setBio(e.target.value)}
+                onChange={(e) => setBio(e.target.value)}
               />
             </div>
             <div className="flex justify-between">
               <button
-              onClick={submitForm}
-              disabled={buttonDisabled}
+                onClick={submitForm}
+                disabled={buttonDisabled}
                 type="submit"
                 className="bg-blue-400 text-white font-semibold py-1 px-4 rounded-md disabled:bg-blue-300"
               >
@@ -121,7 +127,7 @@ const SetDeatil = () => {
           <button
             className="mt-2"
             onClick={() => {
-              updateCurrentPage("profile")
+              updateCurrentPage("profile");
             }}
           >
             Skip
