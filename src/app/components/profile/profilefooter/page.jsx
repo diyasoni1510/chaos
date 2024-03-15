@@ -12,10 +12,9 @@ import { mutate } from "swr";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouteContext } from "@/context";
 
-
 const ProfileFooter = () => {
   const router = useRouter();
-  const { updateCurrentPage, updateWhoseProfile } = useRouteContext()
+  const { updateCurrentPage, updateWhoseProfile } = useRouteContext();
   const [isUpload, setIsUpload] = useState(false);
   const [loading, setLoading] = useState(false);
   const [picUploading, setPicUploading] = useState(false);
@@ -35,7 +34,7 @@ const ProfileFooter = () => {
         },
       });
       localStorage?.removeItem("LoggedInUser");
-      updateCurrentPage("login")
+      updateCurrentPage("login");
     } catch (error) {
       console.log(error);
       console.log(error.mesage);
@@ -55,9 +54,9 @@ const ProfileFooter = () => {
       console.log(response);
       setLoading(false);
       setIsUpload(false);
-      setPost("")
-      setCaption("")
-      setPostName("")
+      setPost("");
+      setCaption("");
+      setPostName("");
       toast.success("Post uploaded successfully");
       mutate("/api/posts/getallposts");
     } catch (error) {
@@ -82,7 +81,7 @@ const ProfileFooter = () => {
       .then((res) => res.json())
       .then((data) => {
         setPost(data.url.toString());
-        setPicUploading(false)
+        setPicUploading(false);
       });
   };
   return (
@@ -159,13 +158,13 @@ const ProfileFooter = () => {
         <FaHome
           className="text-2xl cursor-pointer"
           onClick={() => {
-            updateCurrentPage("profile")
+            updateCurrentPage("profile");
           }}
         />
         <IoSearch
           className="text-2xl cursor-pointer"
           onClick={() => {
-            updateCurrentPage("search")
+            updateCurrentPage("search");
           }}
         />
         <FiPlusCircle
@@ -191,12 +190,19 @@ const ProfileFooter = () => {
             Edit profile
           </button>
           <button
-            onClick={() =>{
-             updateCurrentPage("myprofile")
-            updateWhoseProfile("myprofile")}
-            }
+            onClick={() => {
+              updateCurrentPage("myprofile");
+              updateWhoseProfile("myprofile");
+            }}
           >
             Profile
+          </button>
+          <button
+            onClick={() => {
+              updateCurrentPage("savedPosts");
+            }}
+          >
+            Saved
           </button>
           <button className="text-red-500" onClick={logout}>
             {logoutLoading ? (

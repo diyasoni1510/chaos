@@ -10,6 +10,7 @@ import MessageListPage from "./components/messagelist"
 import EditProfile from "./components/setdetails"
 import MessagePage from "./components/messagepage"
 import FollowPage from "./components/followlist"
+import SavedPosts from "./components/savedPosts/savedPosts"
 
 
 const Index = () => {
@@ -35,6 +36,8 @@ const Index = () => {
         <MessagePage />
       ) : CurrentPage === "editprofile" ? (
         <EditProfile />
+      ) :  CurrentPage === "savedPosts" ? (
+        <SavedPosts />
       ) : CurrentPage === "followpage" ? (
         <FollowPage />
       ) : (

@@ -44,3 +44,10 @@ done api and follow
 
 -> remove folowers api - done
 -> set unfollow api on fronend - done
+
+
+## 15 March 2024
+On saved page
+-> make a savedpost folder, 
+-> make one file for saved post list
+-> make one file for saved post view 

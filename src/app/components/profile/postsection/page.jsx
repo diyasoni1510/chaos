@@ -98,6 +98,19 @@ const PostSection = () => {
     }
   };
 
+  const savePost = async (postId) => {
+    console.log(postId);
+    try {
+      const response = await axios.post("/api/posts/saveposts", {
+        userId: JSON.parse(localStorage?.getItem("LoggedInUser"))._id,
+        postId
+      });
+      console.log(response)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="mb-10">
       {allPosts.data.map((post, index) => {
@@ -151,7 +164,8 @@ const PostSection = () => {
                   onDoubleClick={() => {
                     updateLikes(
                       post._id,
-                      JSON.parse(localStorage?.getItem("LoggedInUser")).username,
+                      JSON.parse(localStorage?.getItem("LoggedInUser"))
+                        .username,
                       true
                     );
                   }}
@@ -200,6 +214,7 @@ const PostSection = () => {
                     className="text-2xl md:text-3xl cursor-pointer"
                     onClick={() => {
                       toast.success("Your Post is saved !");
+                      savePost(post._id);
                     }}
                   />
                 </div>
@@ -305,7 +320,11 @@ const PostSection = () => {
                           <div className="all-comments px-2 h-[400px] overflow-y-scroll">
                             {post.comments.length > 0 ? (
                               post.comments.map((comments, index) => {
-                                const options = { day: 'numeric', month: 'short', year: 'numeric' };
+                                const options = {
+                                  day: "numeric",
+                                  month: "short",
+                                  year: "numeric",
+                                };
                                 return (
                                   <div
                                     className="flex space-x-3 md:space-x-4 items-center mt-3"
@@ -328,7 +347,12 @@ const PostSection = () => {
                                       </p>
                                       <div className="text-xs text-gray-500 flex space-x-4 mt-1">
                                         <span className="cursor-pointer">
-                                          {new Date(comments.createdAt).toLocaleDateString('en-US', options)}
+                                          {new Date(
+                                            comments.createdAt
+                                          ).toLocaleDateString(
+                                            "en-US",
+                                            options
+                                          )}
                                         </span>
                                         <span className="cursor-pointer">
                                           {comments.like} likes
