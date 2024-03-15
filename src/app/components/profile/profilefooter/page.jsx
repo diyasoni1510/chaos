@@ -36,13 +36,11 @@ const ProfileFooter = () => {
       localStorage?.removeItem("LoggedInUser");
       updateCurrentPage("login");
     } catch (error) {
-      console.log(error);
       console.log(error.mesage);
     }
   };
   const submitPost = async (e) => {
     e.preventDefault();
-    console.log(post, caption);
     try {
       setLoading(true);
       const response = await axios.post("/api/users/uploadpost", {
@@ -51,7 +49,6 @@ const ProfileFooter = () => {
         userId: JSON.parse(localStorage?.getItem("LoggedInUser"))._id,
         username: JSON.parse(localStorage?.getItem("LoggedInUser")).username,
       });
-      console.log(response);
       setLoading(false);
       setIsUpload(false);
       setPost("");
@@ -69,7 +66,6 @@ const ProfileFooter = () => {
   const inputFileRef = useRef();
   const postPic = (pic) => {
     setPicUploading(true);
-    console.log(pic);
     const data = new FormData();
     data.append("file", pic);
     data.append("upload_preset", "gupshup");

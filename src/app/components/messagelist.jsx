@@ -24,20 +24,16 @@ const MessageList = () => {
 
   const { updateCurrentPage,updateMessageWithWhom } = useRouteContext()
   const searchUser = async () => {
-    console.log(searchedUser);
     try {
-      // setLoading(true)
       const response = await axios.post("/api/users/searchuser", {
         username: searchedUser,
       });
-      console.log(response);
       setSearchedUser("");
       setSearchedUserResult(response.data.data);
       // setLoading(false)
     } catch (error) {
       toast.error(error.response.data.message);
       setSearchedUser("");
-      // console.log(error.response.data.message);
     }
   };
 

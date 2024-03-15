@@ -24,11 +24,9 @@ const SignupPage = () => {
   const { updateCurrentPage } = useRouteContext()
   const submitFrom = async(e) => {
     e.preventDefault();
-    console.log(username, password, email, pic);
         try {
         setLoading(true);
         const response = await axios.post("/api/users/signup", { username, password, email ,pic})
-        console.log(response)
         if (response.data.status === 201) {
           setLoading(false)
           toast.success("User Signed up succesfully");

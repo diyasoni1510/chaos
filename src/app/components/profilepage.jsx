@@ -31,7 +31,6 @@ const ProfilePage = () => {
   const { updateCurrentPage,whoseProfile,updateMessageWithWhom } = useRouteContext()
 
   useEffect(()=>{
-    console.log(whoseProfile)
     axios.post("/api/users/getuserfromid", {
           _id: whoseProfile === "myprofile" ? JSON.parse(localStorage?.getItem("LoggedInUser"))._id : whoseProfile,
         }).then(res=>{
@@ -39,7 +38,6 @@ const ProfilePage = () => {
         }). catch ((error) => {
         console.log(error);
       })
-    console.log(whoseProfile)
   },[])
   const getAllPosts = async () => {
     try {

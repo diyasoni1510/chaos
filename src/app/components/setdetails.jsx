@@ -21,7 +21,6 @@ const SetDeatil = () => {
     if (pic || name.length > 0 || bio.length > 0) setButtonDisabled(false);
   });
   const postPic = (pic) => {
-    console.log(pic);
     const data = new FormData();
     data.append("file", pic);
     data.append("upload_preset", "gupshup");
@@ -40,7 +39,6 @@ const SetDeatil = () => {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    console.log(username, name, bio, pic);
     try {
       const response = await axios.post("/api/users/updatemoredetails", {
         username: JSON.parse(localStorage?.getItem("LoggedInUser")).username,
@@ -48,7 +46,6 @@ const SetDeatil = () => {
         bio,
         pic,
       });
-      console.log(response);
       toast.success(response.data.message);
       updateCurrentPage("myprofile")
       updateWhoseProfile("myprofile")

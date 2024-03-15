@@ -22,7 +22,6 @@ const StorySection = () => {
     try {
       setLoading(true)
     const response = await axios.get("/api/users/allusers",{ next: { revalidate: 0 }})
-      console.log(response.data.data)
       setAllUsers([response.data.data][0])
       setLoading(false)
     } catch (error) {

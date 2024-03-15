@@ -48,11 +48,12 @@ DONE
 1. Post comment section  value is reflected on every comment when typing - postponed
 2. Follow btn on post is not working - done
 3. follow,unfollow,remove etc buttons on follow list page is not set perfectly
+------------------------------------------------------------------------------------
 4. edit profile page is not working correctly - done
 5. user should also click on other user name and see his profile on messag page - done
 
 --------------
 ## FUTURE GOALS
 --------------
-1. save post 
+1. save post - DONE
 2. share posts in message

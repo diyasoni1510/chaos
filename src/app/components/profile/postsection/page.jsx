@@ -55,7 +55,6 @@ const PostSection = () => {
     );
 
   const updateLikes = async (_id, like, add) => {
-    console.log(_id, like);
     const response = await axios.post("/api/posts/updatelike", {
       _id,
       like,
@@ -92,20 +91,17 @@ const PostSection = () => {
         add: true,
       });
       mutate("/api/posts/getallposts");
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
 
   const savePost = async (postId) => {
-    console.log(postId);
     try {
       const response = await axios.post("/api/posts/saveposts", {
         userId: JSON.parse(localStorage?.getItem("LoggedInUser"))._id,
         postId
       });
-      console.log(response)
     } catch (error) {
       console.log(error);
     }

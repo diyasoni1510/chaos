@@ -39,7 +39,6 @@ const Follow = () => {
       const response = await axios.post("/api/users/getuserfromid", {
         _id: user,
       });
-      console.log(response);
       setAllFollowers((prev) => [...prev, response.data.data]);
     } catch (error) {
       console.log(error);
@@ -66,7 +65,6 @@ const Follow = () => {
     }
   };
   const UpdateFollower = async (user, add) => {
-    console.log(user, add);
     // if(add === false){
     try {
       const response = await axios.post("/api/users/updatefollowers", {
@@ -84,7 +82,6 @@ const Follow = () => {
   },[])
 
   useEffect(() => {
-    console.log(followers);
     followers &&
       followers.map((follower, index) => {
         getFollowerInfo(follower);

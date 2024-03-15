@@ -35,21 +35,16 @@ const MessagePage = () => {
   };
 
   const createChat = async () => {
-    console.log(messageWithUser?._id, userOne);
     if (userOne && userTwo) {
-      console.log(userOne, messageWithUser?._id);
       const createChat = await axios.post("/api/chat/createchat", {
         userOne,
         userTwo,
       });
-      console.log(createChat.data.data._id);
       setChatId(createChat.data.data._id);
-      console.log(createChat);
     }
   };
 
   const sendMessage = async (message) => {
-    console.log(userOne, userTwo, message);
     try {
       const response = await axios.post("/api/chat/updatechat", {
         chatId,
@@ -58,7 +53,6 @@ const MessagePage = () => {
       });
       getAllMessage();
       setMessage("");
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -74,7 +68,6 @@ const MessagePage = () => {
   };
 
   useEffect(() => {
-    console.log(messageWithWhom);
   }, []);
   useEffect(() => {
     getUserInfo();

@@ -38,7 +38,6 @@ const LoginPage = () => {
           username,
           password,
         });
-        console.log(verifylogin.message)
         setLoading(false);
         updateCurrentPage("profile")
         localStorage?.setItem("LoggedInUser", JSON.stringify(verifylogin.data.data));
