@@ -35,7 +35,7 @@ LOGIC PROBLEMS
 
 14 March 2024
 
-SOME PAGE PROBLEMS AFETR IMPLEMENTING CONTEXT
+## SOME PAGE PROBLEMS AFETR IMPLEMENTING CONTEXT
 ----------------------------------------------
 1. my profile is not accessible to loggedin user but it shoudl be for every person
 2. same as messagepage also need to be accessible between any two people in which one is loggedin user and other can be anybody
@@ -43,7 +43,7 @@ DONE
 ------
 
 
-SOME OTHER PROBLEMS
+## SOME OTHER PROBLEMS
 -------------------
 1. Post comment section  value is reflected on every comment when typing
 2. Follow btn on post is not working - done
@@ -52,7 +52,7 @@ SOME OTHER PROBLEMS
 5. user should also click on other user name and see his profile on messag page
 
 --------------
-FUTURE GOALS
+## FUTURE GOALS
 --------------
 1. save post 
 2. share posts in message

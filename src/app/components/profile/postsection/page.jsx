@@ -305,6 +305,7 @@ const PostSection = () => {
                           <div className="all-comments px-2 h-[400px] overflow-y-scroll">
                             {post.comments.length > 0 ? (
                               post.comments.map((comments, index) => {
+                                const options = { day: 'numeric', month: 'short', year: 'numeric' };
                                 return (
                                   <div
                                     className="flex space-x-3 md:space-x-4 items-center mt-3"
@@ -327,7 +328,7 @@ const PostSection = () => {
                                       </p>
                                       <div className="text-xs text-gray-500 flex space-x-4 mt-1">
                                         <span className="cursor-pointer">
-                                          {comments.day}d
+                                          {new Date(comments.createdAt).toLocaleDateString('en-US', options)}
                                         </span>
                                         <span className="cursor-pointer">
                                           {comments.like} likes
