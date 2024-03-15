@@ -49,8 +49,8 @@ const SavedPosts = () => {
               ))}
             </>
           ) : (
-            savedPostsImage.length > 1 &&
             savedPostsImage.map((post) => {
+              console.log(savedPostsImage)
               console.log(post);
               return (
                 <>
