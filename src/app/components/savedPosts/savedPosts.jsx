@@ -7,7 +7,9 @@ const SavedPosts = () => {
   const { updateCurrentPage } = useRouteContext();
   const [savedPostsImage, setSavedPostsImage] = useState([]);
   const [showBig, setShowBig] = useState("");
+  const [loading, setLoading] = useState();
   const getAllSavedPosts = async () => {
+    setLoading(true);
     const response = await axios.post("/api/posts/getsaveposts", {
       userId: JSON.parse(localStorage?.getItem("LoggedInUser"))._id,
     });
@@ -16,6 +18,7 @@ const SavedPosts = () => {
         postId: post.postId,
       });
       setSavedPostsImage((prev) => [...prev, getpostdetails.data.data]);
+      setLoading(false);
     });
   };
   useEffect(() => {
@@ -37,7 +40,16 @@ const SavedPosts = () => {
           <p>Saved Posts</p>
         </div>
         <div className="w-100 flex flex-wrap pt-2">
-          {savedPostsImage.length > 1 ? (
+          {loading ? (
+            <>
+              {[...Array(9)].map((_, index) => (
+                <div className="w-1/3 p-1 h-[110px]" key={index}>
+                  <div className="bg-gray-200 w-full h-full"></div>
+                </div>
+              ))}
+            </>
+          ) : (
+            savedPostsImage.length > 1 &&
             savedPostsImage.map((post) => {
               console.log(post);
               return (
@@ -57,14 +69,6 @@ const SavedPosts = () => {
                 </>
               );
             })
-          ) : (
-            <>
-              {[...Array(9)].map((_, index) => (
-                <div className="w-1/3 p-1 h-[110px]" key={index}>
-                  <div className="bg-gray-200 w-full h-full"></div>
-                </div>
-              ))}
-            </>
           )}
         </div>
       </div>
