@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 
-const savedPosts = () => {
+const SavedPosts = () => {
   const { updateCurrentPage } = useRouteContext();
   const [savedPostsImage,setSavedPostsImage] = useState([])
   const getAllSavedPosts = async () => {
@@ -43,4 +43,4 @@ const savedPosts = () => {
   );
 };
 
-export default savedPosts;
+export default SavedPosts;
