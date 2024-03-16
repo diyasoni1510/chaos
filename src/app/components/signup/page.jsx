@@ -135,7 +135,7 @@ const SignupPage = () => {
                 disabled={buttonDisabled}
                 className="flex justify-center items-center  text-center bg-blue-400 text-white w-[235px] py-2 rounded-md font-semibold transform transition disabled:bg-blue-300 "
               >
-                {loading || picUploading === true && (
+                {(loading || picUploading === true) && (
                   <div role="status">
                     <svg
                       aria-hidden="true"

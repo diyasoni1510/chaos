@@ -60,4 +60,5 @@ DONE
 
 
 ## 16 march 2024
+1. loading is not visible on clicking signup
 
