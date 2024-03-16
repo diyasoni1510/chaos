@@ -256,7 +256,7 @@ const PostSection = () => {
                     <div
                       className="w-[20px] h-[20px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-cover bg-center bg-no-repeat"
                       style={{
-                        backgroundImage: `url(${post?.userDetails[0]?.pic})`,
+                        backgroundImage: `url(${JSON.parse(localStorage.getItem("LoggedInUser")).pic})`,
                       }}
                     ></div>
                     <div>
@@ -383,7 +383,7 @@ const PostSection = () => {
                               <div
                                 className="w-[20px] h-[20px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-cover bg-center bg-no-repeat"
                                 style={{
-                                  backgroundImage: `url(${post?.userDetails[0]?.pic}})`,
+                                  backgroundImage: `url(${JSON.parse(localStorage.getItem("LoggedInUser")).pic})`,
                                 }}
                               ></div>
                               <div>

@@ -24,9 +24,9 @@ const ProfileHeader = () => {
         <div className="flex items-center justify-between py-4">
           <div className="logo text-2xl tracking-widest pl-2">GupShup</div>
           <div className="header-icons space-x-4 items-center justify-center flex md:hidden pr-2">
-            <Link href="/" className="text-2xl hover:text-blue-300">
+            <div className="cursor-pointer text-2xl hover:text-blue-300">
               <FaRegHeart />
-            </Link>
+            </div>
             <div onClick={()=>updateCurrentPage("messagelist")} className="text-2xl cursor-pointer hover:text-blue-300">
               <AiFillMessage />
             </div>
