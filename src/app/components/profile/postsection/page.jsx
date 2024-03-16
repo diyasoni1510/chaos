@@ -22,6 +22,8 @@ const PostSection = () => {
   const [postSentTo, setPostSentTo] = useState("");
   const [comment, setComment] = useState("");
   const [islike, setIsLike] = useState();
+  const { updateCurrentPage, updateWhoseProfile } = useRouteContext()
+
 
   const { data: allPosts, error: postError } = useSWR(
     "/api/posts/getallposts",
@@ -107,7 +109,6 @@ const PostSection = () => {
       console.log(error);
     }
   };
-  const { updateCurrentPage, updateWhoseProfile } = useRouteContext()
 
   return (
     <div className="mb-10">
