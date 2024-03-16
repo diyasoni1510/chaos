@@ -71,7 +71,7 @@ const PostSection = () => {
   const sendComment = async (e, postId) => {
     if(comment === ""){
       toast('Write some comment', {
-        icon: '👏',
+        icon: '💀',
       });
       return
     }
