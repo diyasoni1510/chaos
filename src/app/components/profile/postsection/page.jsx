@@ -12,6 +12,7 @@ import Link from "next/link";
 import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
 import useSWR, { mutate } from "swr";
+import { useRouteContext } from "@/context";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -106,10 +107,11 @@ const PostSection = () => {
       console.log(error);
     }
   };
+  const { updateCurrentPage, updateWhoseProfile } = useRouteContext()
 
   return (
     <div className="mb-10">
-      {allPosts.data.map((post, index) => {
+      {allPosts?.data.map((post, index) => {
         return (
           <div
             className="mt-2 md:border border-gray-400 rounded-md p-3 flex flex-col justify-center items-center"
@@ -120,22 +122,26 @@ const PostSection = () => {
                 <div className="flex space-x-3 md:space-x-4 items-center">
                   <div className="w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-cover bg-center bg-no-repeat">
                     <img
-                      src={post.userDetails[0]?.pic}
+                      src={post?.userDetails[0]?.pic}
                       className="w-full h-full object-cover rounded-full"
                     ></img>
                   </div>
                   <div>
-                    <Link
-                      href={`/profilepage/${post.username}`}
-                      className="font-semibold"
+                    <div
+                      onClick={()=>{
+                        updateCurrentPage("myprofile")
+                        updateWhoseProfile(post?.userId)
+                      }}
+                      className="font-semibold cursor-pointer"
                     >
-                      {post.username}
-                    </Link>
+                      {post?.username}
+                    </div>
                   </div>
                 </div>
-                {post.userId !== localStorage?.getItem("userId") && (
+                {(post?.userId !== localStorage?.getItem("userId")) && (
                   <div>
-                    {post.userDetails[0].followers.includes(
+                    {console.log(post)}
+                    {post?.userDetails[0].followers.includes(
                       JSON.parse(localStorage?.getItem("LoggedInUser"))._id
                     ) ? (
                       <button className="text-sm md:text-base bg-white border-2 border-blue-400 text-blue-400 px-2 py-1 rounded-md font-semibold transform transition hover:bg-white hover:text-blue-400 disabled:bg-blue-300 hover:scale-95">
@@ -144,7 +150,7 @@ const PostSection = () => {
                     ) : (
                       <button
                         className="text-sm md:text-base bg-blue-400 text-white px-2 py-1 rounded-md font-semibold transform transition hover:bg-white hover:text-blue-400 disabled:bg-blue-300 hover:scale-95"
-                        onClick={() => followUser(post.userId)}
+                        onClick={() => followUser(post?.userId)}
                       >
                         Follow
                       </button>
@@ -155,11 +161,11 @@ const PostSection = () => {
 
               <div className="mt-3 image">
                 <img
-                  src={post.post}
+                  src={post?.post}
                   className="object-fill min-w-full h-[300px]"
                   onDoubleClick={() => {
                     updateLikes(
-                      post._id,
+                      post?._id,
                       JSON.parse(localStorage?.getItem("LoggedInUser"))
                         .username,
                       true
@@ -170,14 +176,14 @@ const PostSection = () => {
 
               <div className="post-icons flex justify-between items-center mt-3 md:px-2">
                 <div className="flex space-x-4">
-                  {console.log(post.likes)}
-                  {post.likes.includes(JSON.parse(localStorage?.getItem("LoggedInUser")).username) ===
+                  {console.log(post?.likes)}
+                  {post?.likes.includes(JSON.parse(localStorage?.getItem("LoggedInUser")).username) ===
                     false || islike === false ? (
                     <FaRegHeart
                       className="text-2xl md:text-3xl"
                       onClick={() => {
                         updateLikes(
-                          post._id,
+                          post?._id,
                           JSON.parse(localStorage?.getItem("LoggedInUser")).username,
                           true
                         );
@@ -188,7 +194,7 @@ const PostSection = () => {
                       className="text-red-500 text-2xl md:text-3xl"
                       onClick={() => {
                         updateLikes(
-                          post._id,
+                          post?._id,
                           JSON.parse(localStorage?.getItem("LoggedInUser")).username,
                           false
                         );
@@ -198,7 +204,7 @@ const PostSection = () => {
                   <FaRegComment
                     className="text-2xl md:text-3xl cursor-pointer"
                     onClick={() => {
-                      setShowComments(post._id);
+                      setShowComments(post?._id);
                     }}
                   />
                   <FaRegShareFromSquare
@@ -211,32 +217,32 @@ const PostSection = () => {
                     className="text-2xl md:text-3xl cursor-pointer"
                     onClick={() => {
                       toast.success("Your Post is saved !");
-                      savePost(post._id);
+                      savePost(post?._id);
                     }}
                   />
                 </div>
               </div>
 
               <div className="mt-3 md:px-2">
-                <div className="text-sm">{post.likes.length} likes</div>
+                <div className="text-sm">{post?.likes.length} likes</div>
                 <div>
                   <span className="font-semibold mr-1 text-sm md:text-base">
-                    {post.username}
+                    {post?.username}
                   </span>
-                  <span className="text-sm md:text-base">{post.caption}</span>
+                  <span className="text-sm md:text-base">{post?.caption}</span>
                 </div>
-                {post.comments.length > 0 && (
+                {post?.comments.length > 0 && (
                   <div
                     className="text-gray-400 text-xs md:text-sm mt-2 cursor-pointer"
                     onClick={() => {
                       setShowComments(true);
                     }}
                   >
-                    View all {post.comments.length} comments
+                    View all {post?.comments.length} comments
                   </div>
                 )}
                 <div className="text-gray-400 text-xs md:text-sm mt-1">
-                  {formatDate(post.createdAt)}
+                  {formatDate(post?.createdAt)}
                 </div>
 
                 <div className="mt-4 flex justify-between pb-2">
@@ -244,7 +250,7 @@ const PostSection = () => {
                     <div
                       className="w-[20px] h-[20px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-cover bg-center bg-no-repeat"
                       style={{
-                        backgroundImage: `url(${post.userDetails[0]?.pic})`,
+                        backgroundImage: `url(${post?.userDetails[0]?.pic})`,
                       }}
                     ></div>
                     <div>
@@ -255,7 +261,7 @@ const PostSection = () => {
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
                         onKeyUp={(e) => {
-                          sendComment(e, post._id);
+                          sendComment(e, post?._id);
                         }}
                       ></input>
                     </div>
@@ -265,7 +271,7 @@ const PostSection = () => {
                   </div>
                 </div>
               </div>
-              {showComments === post._id && (
+              {showComments === post?._id && (
                 <dialog
                   id="my_modal_1"
                   className="modal fixed top-0 bg-black bg-opacity-20 w-screen h-screen z-50 block md:hiden"
@@ -298,7 +304,7 @@ const PostSection = () => {
                               <div
                                 className="w-[30px] h-[30px] flex-shrink-0 rounded-full ring-2 ring-offset-2 ring-blue-300 bg-cover bg-center bg-no-repeat"
                                 style={{
-                                  backgroundImage: `url(${post.userDetails[0]?.pic})`,
+                                  backgroundImage: `url(${post?.userDetails[0]?.pic})`,
                                 }}
                               ></div>
                               <div>
@@ -307,16 +313,16 @@ const PostSection = () => {
                                     href="/UserProfile"
                                     className="font-semibold"
                                   >
-                                    {post.username}
+                                    {post?.username}
                                   </Link>
-                                  <span className="ml-2">{post.caption}</span>
+                                  <span className="ml-2">{post?.caption}</span>
                                 </p>
                               </div>
                             </div>
                           </div>
                           <div className="all-comments px-2 h-[400px] overflow-y-scroll">
-                            {post.comments.length > 0 ? (
-                              post.comments.map((comments, index) => {
+                            {post?.comments.length > 0 ? (
+                              post?.comments.map((comments, index) => {
                                 const options = {
                                   day: "numeric",
                                   month: "short",
@@ -373,7 +379,7 @@ const PostSection = () => {
                               <div
                                 className="w-[20px] h-[20px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-cover bg-center bg-no-repeat"
                                 style={{
-                                  backgroundImage: `url(${post.userDetails[0]?.pic}})`,
+                                  backgroundImage: `url(${post?.userDetails[0]?.pic}})`,
                                 }}
                               ></div>
                               <div>
@@ -384,7 +390,7 @@ const PostSection = () => {
                                   value={comment}
                                   onChange={(e) => setComment(e.target.value)}
                                   onKeyUp={(e) => {
-                                    sendComment(e, post._id);
+                                    sendComment(e, post?._id);
                                   }}
                                 ></input>
                               </div>

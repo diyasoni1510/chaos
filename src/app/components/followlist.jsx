@@ -57,15 +57,14 @@ const Follow = () => {
   const removeFollowers = async (follow) => {
     try {
       const response = await axios.post("/api/users/removefollower", {
-        _id: localStorage?.getItem("userId"),
-        follow,
+        _id: JSON.parse(localStorage?.getItem("LoggedInUser"))._id,
+        follow: whoseProfile,
       });
     } catch (error) {
       console.log(error);
     }
   };
   const UpdateFollower = async (user, add) => {
-    // if(add === false){
     try {
       const response = await axios.post("/api/users/updatefollowers", {
         _id: localStorage?.getItem("userId"),
@@ -77,9 +76,9 @@ const Follow = () => {
       console.log(error);
     }
   };
-  useEffect(()=>{
-    getUserInfo()
-  },[])
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   useEffect(() => {
     followers &&
@@ -163,14 +162,15 @@ const Follow = () => {
                       </div>
                     </div>
                     <div>
-                      {isMyProfile ? (
+                      {console.log(whoseProfile)}
+                      {whoseProfile === "myprofile" || whoseProfile === JSON.parse(localStorage.getItem("LoggedInUser"))._id ? (
                         <button
                           onClick={() => removeFollowers(follower._id)}
                           className="bg-blue-300 text-white font-semibold py-1 px-5 text-sm rounded-md"
                         >
                           Remove
                         </button>
-                      ) : follower.following.includes(following._id) ? (
+                      ) : follower.followers.includes(JSON.parse(localStorage.getItem("LoggedInUser"))._id) ? (
                         <button
                           onClick={() => UpdateFollower(follower._id, false)}
                           className="bg-blue-300 text-white font-semibold py-1 px-5 text-sm rounded-md"
