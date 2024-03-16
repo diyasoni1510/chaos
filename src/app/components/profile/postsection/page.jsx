@@ -170,14 +170,15 @@ const PostSection = () => {
 
               <div className="post-icons flex justify-between items-center mt-3 md:px-2">
                 <div className="flex space-x-4">
-                  {post.likes.includes(localStorage?.getItem("username")) ===
+                  {console.log(post.likes)}
+                  {post.likes.includes(JSON.parse(localStorage?.getItem("LoggedInUser")).username) ===
                     false || islike === false ? (
                     <FaRegHeart
                       className="text-2xl md:text-3xl"
                       onClick={() => {
                         updateLikes(
                           post._id,
-                          localStorage?.getItem("username"),
+                          JSON.parse(localStorage?.getItem("LoggedInUser")).username,
                           true
                         );
                       }}
@@ -188,7 +189,7 @@ const PostSection = () => {
                       onClick={() => {
                         updateLikes(
                           post._id,
-                          localStorage?.getItem("username"),
+                          JSON.parse(localStorage?.getItem("LoggedInUser")).username,
                           false
                         );
                       }}
