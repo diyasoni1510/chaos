@@ -23,9 +23,9 @@ const SetDeatil = () => {
   const postPic = (pic) => {
     const data = new FormData();
     data.append("file", pic);
-    data.append("upload_preset", "gupshup");
-    data.append("cloud_name", "dp2bxtrpy");
-    fetch("https://api.cloudinary.com/v1_1/dp2bxtrpy/image/upload", {
+    data.append("upload_preset", "gup-shup");
+    data.append("cloud_name", "dgpiuhoad");
+    fetch("https://api.cloudinary.com/v1_1/dgpiuhoad/image/upload", {
       method: "post",
       body: data,
     })
