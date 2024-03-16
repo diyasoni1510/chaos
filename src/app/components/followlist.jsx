@@ -162,7 +162,6 @@ const Follow = () => {
                       </div>
                     </div>
                     <div>
-                      {console.log(whoseProfile)}
                       {whoseProfile === "myprofile" || whoseProfile === JSON.parse(localStorage.getItem("LoggedInUser"))._id ? (
                         <button
                           onClick={() => removeFollowers(follower._id)}

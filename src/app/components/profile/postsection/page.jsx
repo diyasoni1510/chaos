@@ -13,6 +13,7 @@ import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
 import useSWR, { mutate } from "swr";
 import { useRouteContext } from "@/context";
+import { IoWarningOutline } from "react-icons/io5";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -68,7 +69,13 @@ const PostSection = () => {
   };
 
   const sendComment = async (e, postId) => {
-    if (e.key === "Enter") {
+    if(comment === ""){
+      toast('Write some comment', {
+        icon: '👏',
+      });
+      return
+    }
+    if (comment) {
       const response = await axios.post("/api/posts/updatecomment", {
         _id: postId,
         user: JSON.parse(localStorage?.getItem("LoggedInUser")).username,
@@ -141,7 +148,6 @@ const PostSection = () => {
                 </div>
                 {(post?.userId !== localStorage?.getItem("userId")) && (
                   <div>
-                    {console.log(post)}
                     {post?.userDetails[0].followers.includes(
                       JSON.parse(localStorage?.getItem("LoggedInUser"))._id
                     ) ? (
@@ -177,7 +183,6 @@ const PostSection = () => {
 
               <div className="post-icons flex justify-between items-center mt-3 md:px-2">
                 <div className="flex space-x-4">
-                  {console.log(post?.likes)}
                   {post?.likes.includes(JSON.parse(localStorage?.getItem("LoggedInUser")).username) ===
                     false || islike === false ? (
                     <FaRegHeart
@@ -261,14 +266,12 @@ const PostSection = () => {
                         placeholder="Add a comment.."
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
-                        onKeyUp={(e) => {
-                          sendComment(e, post?._id);
-                        }}
                       ></input>
                     </div>
                   </div>
                   <div>
-                    <FaRegSmileBeam className="text-2xl " />
+                    {/* <FaRegSmileBeam className="text-2xl " /> */}
+                    <button className="text-sm" onClick={()=>sendComment(comment,post?._id)}>Send</button>
                   </div>
                 </div>
               </div>
@@ -390,14 +393,11 @@ const PostSection = () => {
                                   placeholder="Add a comment.."
                                   value={comment}
                                   onChange={(e) => setComment(e.target.value)}
-                                  onKeyUp={(e) => {
-                                    sendComment(e, post?._id);
-                                  }}
                                 ></input>
                               </div>
                             </div>
                             <div className="pr-3">
-                              <MdGif className="text-2xl cursor-pointer border-2 border-black" />
+                            <button className="text-sm" onClick={()=>sendComment(comment,post?._id)}>Send</button>
                             </div>
                           </div>
                         </div>
