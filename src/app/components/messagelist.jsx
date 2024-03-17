@@ -22,7 +22,7 @@ const MessageList = () => {
 
   const { data, error } = useSWR("/api/users/allusers", fetcher);
 
-  const { updateCurrentPage,updateMessageWithWhom } = useRouteContext()
+  const { updateCurrentPage, updateMessageWithWhom } = useRouteContext();
   const searchUser = async () => {
     try {
       const response = await axios.post("/api/users/searchuser", {
@@ -71,29 +71,40 @@ const MessageList = () => {
         <div>Message</div>
         <div className="text-blue-400">Requests</div>
       </div>
-      {searchedUserResult && 
-      <div>
-      <div className="p-2 m-2 font-semibold">Search Result</div>
-      <div className="flex p-2 justify-between items-center ">
-        <Link href={`/messagepage/${searchedUserResult.username}`}>
-          <div className="flex space-x-4">
-            <div>
-              <img
-                src={searchedUserResult.pic}
-                className="w-[40px] h-[40px] rounded-full object-cover ring-1 ring-offset-2 ring-blue-300"
-              />
+      {searchedUserResult && (
+        <div>
+          <div className="p-2 m-2 font-semibold">Search Result</div>
+          <div className="flex p-2 justify-between items-center ">
+            <div
+              onClick={() => {
+                updateCurrentPage("messagepage");
+                updateMessageWithWhom(searchedUserResult._id);
+                console.log(searchedUserResult._id);
+              }}
+              className="cursor-pointer"
+            >
+              <div className="flex space-x-4">
+                <div>
+                  <img
+                    src={searchedUserResult.pic}
+                    className="w-[40px] h-[40px] rounded-full object-cover ring-1 ring-offset-2 ring-blue-300"
+                  />
+                </div>
+                <div className="text-sm">
+                  <p>
+                    {searchedUserResult.name
+                      ? searchedUserResult.name
+                      : searchedUserResult.username}
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="text-sm">
-              <p>{searchedUserResult.name ? searchedUserResult.name : searchedUserResult.username}</p>
+            <div>
+              <CiCamera className="text-2xl" />
             </div>
           </div>
-        </Link>
-        <div>
-          <CiCamera className="text-2xl" />
         </div>
-      </div>
-      </div>
-}
+      )}
       <div className="p-2 m-2 font-semibold">All users</div>
       <div className="m-2">
         {data &&
@@ -103,10 +114,13 @@ const MessageList = () => {
                 className="flex p-2 justify-between items-center "
                 key={index}
               >
-                <div className="cursor-pointer" onClick={()=>{
-                  updateCurrentPage("messagepage")
-                  updateMessageWithWhom(user._id)
-                }}>
+                <div
+                  className="cursor-pointer"
+                  onClick={() => {
+                    updateCurrentPage("messagepage");
+                    updateMessageWithWhom(user._id);
+                  }}
+                >
                   <div className="flex space-x-4">
                     <div>
                       <img
