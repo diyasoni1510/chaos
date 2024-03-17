@@ -23,8 +23,7 @@ const PostSection = () => {
   const [postSentTo, setPostSentTo] = useState("");
   const [comment, setComment] = useState("");
   const [islike, setIsLike] = useState();
-  const { updateCurrentPage, updateWhoseProfile } = useRouteContext()
-
+  const { updateCurrentPage, updateWhoseProfile } = useRouteContext();
 
   const { data: allPosts, error: postError } = useSWR(
     "/api/posts/getallposts",
@@ -69,11 +68,11 @@ const PostSection = () => {
   };
 
   const sendComment = async (e, postId) => {
-    if(comment === ""){
-      toast('Write some comment', {
-        icon: '💀',
+    if (comment === "") {
+      toast("Write some comment", {
+        icon: "💀",
       });
-      return
+      return;
     }
     if (comment) {
       const response = await axios.post("/api/posts/updatecomment", {
@@ -110,7 +109,7 @@ const PostSection = () => {
     try {
       const response = await axios.post("/api/posts/saveposts", {
         userId: JSON.parse(localStorage?.getItem("LoggedInUser"))._id,
-        postId
+        postId,
       });
     } catch (error) {
       console.log(error);
@@ -136,9 +135,9 @@ const PostSection = () => {
                   </div>
                   <div>
                     <div
-                      onClick={()=>{
-                        updateCurrentPage("myprofile")
-                        updateWhoseProfile(post?.userId)
+                      onClick={() => {
+                        updateCurrentPage("myprofile");
+                        updateWhoseProfile(post?.userId);
                       }}
                       className="font-semibold cursor-pointer"
                     >
@@ -146,7 +145,7 @@ const PostSection = () => {
                     </div>
                   </div>
                 </div>
-                {(post?.userId !== localStorage?.getItem("userId")) && (
+                {post?.userId !== localStorage?.getItem("userId") && (
                   <div>
                     {post?.userDetails[0].followers.includes(
                       JSON.parse(localStorage?.getItem("LoggedInUser"))._id
@@ -169,7 +168,7 @@ const PostSection = () => {
               <div className="mt-3 image">
                 <img
                   src={post?.post}
-                  className="object-fill min-w-full h-[300px]"
+                  className="object-cover min-w-full h-[300px]"
                   onDoubleClick={() => {
                     updateLikes(
                       post?._id,
@@ -178,19 +177,21 @@ const PostSection = () => {
                       true
                     );
                   }}
-                ></img>
+                />
               </div>
 
               <div className="post-icons flex justify-between items-center mt-3 md:px-2">
                 <div className="flex space-x-4">
-                  {post?.likes.includes(JSON.parse(localStorage?.getItem("LoggedInUser")).username) ===
-                    false || islike === false ? (
+                  {post?.likes.includes(
+                    JSON.parse(localStorage?.getItem("LoggedInUser")).username
+                  ) === false || islike === false ? (
                     <FaRegHeart
                       className="text-2xl md:text-3xl"
                       onClick={() => {
                         updateLikes(
                           post?._id,
-                          JSON.parse(localStorage?.getItem("LoggedInUser")).username,
+                          JSON.parse(localStorage?.getItem("LoggedInUser"))
+                            .username,
                           true
                         );
                       }}
@@ -201,7 +202,8 @@ const PostSection = () => {
                       onClick={() => {
                         updateLikes(
                           post?._id,
-                          JSON.parse(localStorage?.getItem("LoggedInUser")).username,
+                          JSON.parse(localStorage?.getItem("LoggedInUser"))
+                            .username,
                           false
                         );
                       }}
@@ -256,7 +258,9 @@ const PostSection = () => {
                     <div
                       className="w-[20px] h-[20px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-cover bg-center bg-no-repeat"
                       style={{
-                        backgroundImage: `url(${JSON.parse(localStorage.getItem("LoggedInUser")).pic})`,
+                        backgroundImage: `url(${
+                          JSON.parse(localStorage.getItem("LoggedInUser")).pic
+                        })`,
                       }}
                     ></div>
                     <div>
@@ -271,7 +275,12 @@ const PostSection = () => {
                   </div>
                   <div>
                     {/* <FaRegSmileBeam className="text-2xl " /> */}
-                    <button className="text-sm" onClick={()=>sendComment(comment,post?._id)}>Send</button>
+                    <button
+                      className="text-sm"
+                      onClick={() => sendComment(comment, post?._id)}
+                    >
+                      Send
+                    </button>
                   </div>
                 </div>
               </div>
@@ -383,7 +392,11 @@ const PostSection = () => {
                               <div
                                 className="w-[20px] h-[20px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-cover bg-center bg-no-repeat"
                                 style={{
-                                  backgroundImage: `url(${JSON.parse(localStorage.getItem("LoggedInUser")).pic})`,
+                                  backgroundImage: `url(${
+                                    JSON.parse(
+                                      localStorage.getItem("LoggedInUser")
+                                    ).pic
+                                  })`,
                                 }}
                               ></div>
                               <div>
@@ -397,7 +410,12 @@ const PostSection = () => {
                               </div>
                             </div>
                             <div className="pr-3">
-                            <button className="text-sm" onClick={()=>sendComment(comment,post?._id)}>Send</button>
+                              <button
+                                className="text-sm"
+                                onClick={() => sendComment(comment, post?._id)}
+                              >
+                                Send
+                              </button>
                             </div>
                           </div>
                         </div>

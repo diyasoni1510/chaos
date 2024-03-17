@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast, { Toaster } from "react-hot-toast";
@@ -21,26 +21,35 @@ const SignupPage = () => {
   const [loading, setLoading] = useState(false);
   const [picUploading, setPicUploading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const { updateCurrentPage } = useRouteContext()
-  const submitFrom = async(e) => {
+  const { updateCurrentPage } = useRouteContext();
+  const fileInput = useRef();
+  const submitFrom = async (e) => {
     e.preventDefault();
-        try {
-        setLoading(true);
-        const response = await axios.post("/api/users/signup", { username, password, email ,pic})
-        if (response.data.status === 201) {
-          setLoading(false)
-          toast.success("User Signed up succesfully");
-          updateCurrentPage("profile")
-        localStorage?.setItem("LoggedInUser", JSON.stringify(response.data.data));
-        } else {
-          toast.error("User already exists");
-        }
-      } catch (error) {
-        toast.error(error.mesaage);
-        console.log(error);
-      } finally {
+    try {
+      setLoading(true);
+      const response = await axios.post("/api/users/signup", {
+        username,
+        password,
+        email,
+        pic,
+      });
+      if (response.data.status === 201) {
         setLoading(false);
+        toast.success("User Signed up succesfully");
+        updateCurrentPage("profile");
+        localStorage?.setItem(
+          "LoggedInUser",
+          JSON.stringify(response.data.data)
+        );
+      } else {
+        toast.error("User already exists");
       }
+    } catch (error) {
+      toast.error(error.mesaage);
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
   useEffect(() => {
     if (username.length > 0 && email.length > 0 && password.length > 6 && pic) {
@@ -50,7 +59,7 @@ const SignupPage = () => {
     }
   });
   const postPic = (pic) => {
-    setPicUploading(true)
+    setPicUploading(true);
     const data = new FormData();
     data.append("file", pic);
     data.append("upload_preset", "gup-shup");
@@ -62,7 +71,7 @@ const SignupPage = () => {
       .then((res) => res.json())
       .then((data) => {
         setPic(data.url.toString());
-    setPicUploading(false)
+        setPicUploading(false);
       });
   };
   return (
@@ -80,11 +89,11 @@ const SignupPage = () => {
               type="text"
               placeholder="Username"
               value={username}
-              onChange={(e)=>setUsername(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
               className="p-2 rounded-md outline-none placeholder:text-sm bg-blue-50 focus:bg-white hover:bg-white placeholder:text-gray-600 focus:placeholder:text-transparent hover:placeholder:text-transparent ring-1 ring-offset-2 ring-blue-400 my-2 "
             ></input>
             <br />
-            
+
             <label htmlFor="email" className="text-gray-600 font-semibold">
               email:
             </label>
@@ -95,7 +104,7 @@ const SignupPage = () => {
               type="text"
               placeholder="email"
               value={email}
-              onChange={(e)=>setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               className="p-2 rounded-md outline-none placeholder:text-sm bg-blue-50 focus:bg-white hover:bg-white placeholder:text-gray-600 focus:placeholder:text-transparent hover:placeholder:text-transparent ring-1 ring-offset-2 ring-blue-400 my-2 "
             ></input>
             <br />
@@ -109,13 +118,15 @@ const SignupPage = () => {
               type="password"
               placeholder="password"
               value={password}
-              onChange={(e)=>setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               className="p-2 rounded-md outline-none placeholder:text-sm bg-blue-50 focus:bg-white hover:bg-white placeholder:text-gray-600 focus:placeholder:text-transparent hover:placeholder:text-transparent ring-1 ring-offset-2 ring-blue-400 my-2 "
             ></input>
-            {password.length < 6 && <span className="text-xs text-red-500">
-              password must contain 6 digits
-            </span>}
-            
+            {password.length < 6 && (
+              <span className="text-xs text-red-500">
+                password must contain 6 digits
+              </span>
+            )}
+
             <br />
             <label htmlFor="pic" className="text-gray-600 font-semibold">
               Profile Picture
@@ -124,11 +135,30 @@ const SignupPage = () => {
               name="pic"
               id="signup-pic"
               type="file"
-              className="w-100 mt-2"
+              className="w-100 mt-2 hidden"
+              ref={fileInput}
               onChange={(e) => {
                 postPic(e.target.files[0]);
               }}
             ></input>
+            <br />
+            <div className="flex gap-5">
+              <button
+                className="border text-sm px-2 py-1"
+                onClick={() => fileInput.current.click()}
+              >
+                Choose a file
+              </button>
+              {pic && (
+                <div className="w-8 h-8">
+                  <img
+                    src={pic}
+                    alt=""
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
+            </div>
             <div className="mt-5 flex justify-center items-center">
               <button
                 onClick={submitFrom}
