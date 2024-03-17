@@ -145,7 +145,10 @@ const SignupPage = () => {
             <div className="flex gap-5">
               <button
                 className="border text-sm px-2 py-1"
-                onClick={() => fileInput.current.click()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  fileInput.current.click();
+                }}
               >
                 Choose a file
               </button>
