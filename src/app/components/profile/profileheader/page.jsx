@@ -24,7 +24,7 @@ const ProfileHeader = () => {
         <div className="flex items-center justify-between py-4">
           <div className="logo text-2xl tracking-widest pl-2">Chaos</div>
           <div className="header-icons space-x-4 items-center justify-center flex md:hidden pr-2">
-            <div className="cursor-pointer text-2xl hover:text-blue-300">
+            <div className="cursor-pointer text-2xl hover:text-blue-300" onClick={()=>updateCurrentPage("likenotification")}>
               <FaRegHeart />
             </div>
             <div onClick={()=>updateCurrentPage("messagelist")} className="text-2xl cursor-pointer hover:text-blue-300">
