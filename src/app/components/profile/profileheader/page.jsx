@@ -22,7 +22,7 @@ const ProfileHeader = () => {
     <div className="bg-blue-50 shadow flex justify-center items-center fixed top-0 w-full z-50">
       <div className="container">
         <div className="flex items-center justify-between py-4">
-          <div className="logo text-2xl tracking-widest pl-2">GupShup</div>
+          <div className="logo text-2xl tracking-widest pl-2">Chaos</div>
           <div className="header-icons space-x-4 items-center justify-center flex md:hidden pr-2">
             <div className="cursor-pointer text-2xl hover:text-blue-300">
               <FaRegHeart />
