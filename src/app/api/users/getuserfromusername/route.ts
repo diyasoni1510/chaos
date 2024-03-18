@@ -9,7 +9,7 @@ connect();
 export async function POST(request: NextRequest) {
   try {
     const { username } = await request.json();
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username, deleted: { $ne: true }  });
     if (user) return NextResponse.json({ message: "user found", data: user });
     else
       return NextResponse.json(

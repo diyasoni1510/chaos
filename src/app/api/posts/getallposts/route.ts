@@ -19,6 +19,9 @@ export async function GET(request:NextRequest) {
               }
             },
             {
+              $match: { "userDetails.0.deleted": { $ne: true } }
+            },
+            {
                 $sort: { "createdAt": -1 }  // Newest posts first based on 'createdAt'
             }
           ]);

@@ -1,21 +1,23 @@
 import mongoose from "mongoose";
-import { date } from "yup";
+import { boolean, date } from "yup";
 
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: [true, "Please provide a username"],
-    unique: true,
   },
   name: String,
   bio: String,
   followers: Array,
   following: Array,
   pic: String,
+  deleted : {
+    type:Boolean,
+    default:false
+  },
   email: {
     type: String,
     required: [true, "Please provide a email"],
-    unique: true,
   },
   password: {
     type: String,

@@ -106,6 +106,11 @@ const ProfilePage = () => {
                   >
                     Edit profile
                   </div>
+                  <div
+                    className="cursor-pointer text-red-500" onClick={()=>updateCurrentPage("deleteaccount")}
+                  >
+                    Delete account
+                  </div>
                 </div>
               )}
             </div>

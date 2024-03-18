@@ -12,7 +12,7 @@ export async function GET(request:NextRequest) {
         const headers = {
             "Custom-Header": "Custom Value",
           };
-        const allUsers = await User.find({})
+        const allUsers = await User.find({ deleted: { $ne: true } })
         return NextResponse.json({message:"all users",data:allUsers})
     } catch (error :any) {
         return NextResponse.json({error:error.message},{status:500})

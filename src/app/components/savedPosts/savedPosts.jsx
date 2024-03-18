@@ -38,6 +38,8 @@ const SavedPosts = () => {
               postId: post.postId,
             }
           );
+          console.log(getpostdetails.data.data)
+          getpostdetails.data.data.length > 0 && 
           setSavedPostsImage((prev) => [...prev, getpostdetails.data.data]);
           setLoading(false);
         });
@@ -75,6 +77,9 @@ const SavedPosts = () => {
   useEffect(() => {
     getAllSavedPosts();
   }, []);
+  useEffect(()=>{
+console.log(savedPostsImage)
+  },[savedPostsImage])
   return (
     <>
       <div>
@@ -96,7 +101,7 @@ const SavedPosts = () => {
                 </div>
               ))}
             </>
-          ) : savedPostsImage.length > 0 ? (
+          ) : (savedPostsImage && savedPostsImage.length > 0) ? (
             savedPostsImage.map((post) => {
               return (
                 <>

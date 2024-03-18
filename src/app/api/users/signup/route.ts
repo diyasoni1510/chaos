@@ -12,7 +12,7 @@ export async function POST(request:NextRequest){
         const reqBody = await request.json()
         const {username,email,password,pic} = reqBody
 
-        const user = await User.findOne({email})
+        const user = await User.findOne({username, email, deleted: { $ne: true } })
 
         if(user){
             return NextResponse.json({error: "user already exists"},{status:200})

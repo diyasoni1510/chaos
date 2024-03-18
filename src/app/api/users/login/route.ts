@@ -14,7 +14,8 @@ export async function POST(request: NextRequest) {
 
     const { username, password } = reqBody;
 
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username, deleted : {$ne : true}} );
+    
     if (user) {
   try {
     const validPassword = await bcryptjs.compare(password, user.password);

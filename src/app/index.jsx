@@ -12,6 +12,7 @@ import MessagePage from "./components/messagepage"
 import FollowPage from "./components/followlist"
 import SavedPosts from "./components/savedPosts/savedPosts"
 import ReelPage from "./components/reelsection"
+import DeleteAccount from "./components/deleteaccount"
 
 
 const Index = () => {
@@ -43,6 +44,8 @@ const Index = () => {
         <ReelPage />
       ) : CurrentPage === "followpage" ? (
         <FollowPage />
+      ) : CurrentPage === "deleteaccount" ? (
+        <DeleteAccount />
       ) : (
         <ProfilePage />
       )}
