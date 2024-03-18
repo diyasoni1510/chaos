@@ -51,3 +51,12 @@ On saved page
 -> make a savedpost folder, 
 -> make one file for saved post list
 -> make one file for saved post view 
+
+
+## 18 March ( after linkedin upload)
+1. update name - (done)
+2. Reels sharing
+3. delete account funtionality 
+4. share post (with another user)
+5. Notification for post like
+6. forgot password (with email) 

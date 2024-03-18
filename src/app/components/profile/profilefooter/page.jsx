@@ -200,7 +200,7 @@ const ProfileFooter = () => {
             setPost(null)
           }}
         />
-        <FaVideo className="text-2xl cursor-pointer" />
+        <FaVideo onClick={()=>updateCurrentPage("reelpage")} className="text-2xl cursor-pointer" />
 
         <IoPersonCircle
           className="text-2xl cursor-pointer"
