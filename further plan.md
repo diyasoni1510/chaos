@@ -56,7 +56,7 @@ On saved page
 ## 18 March ( after linkedin upload)
 1. update name - (done)
 2. Reels sharing
-3. delete account funtionality 
+3. delete account funtionality - (done)
 4. share post (with another user)
 5. Notification for post like
 6. forgot password (with email) 
