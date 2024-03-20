@@ -62,3 +62,5 @@ DONE
 ## 16 march 2024
 1. loading is not visible on clicking signup
 
+## 20march
+1. make another backup project and make changes in that first

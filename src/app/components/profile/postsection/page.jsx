@@ -23,7 +23,7 @@ const PostSection = () => {
   const [postSentTo, setPostSentTo] = useState("");
   const [comment, setComment] = useState("");
   const [islike, setIsLike] = useState();
-  const { updateCurrentPage, updateWhoseProfile } = useRouteContext();
+  const { updateCurrentPage, updateWhoseProfile, updatePostThatSent, updateMessageWithWhom } = useRouteContext();
 
   const { data: allPosts, error: postError } = useSWR(
     "/api/posts/getallposts",
@@ -438,7 +438,7 @@ const PostSection = () => {
                         return (
                           <div
                             key={user._id}
-                            onClick={() => setPostSentTo(user.username)}
+                            onClick={() => setPostSentTo(user._id)}
                           >
                             <div
                               className="w-[50px] h-[50px] rounded-full ring-2 ring-offset-2 ring-blue-300 bg-cover bg-center bg-no-repeat cursor-pointer "
@@ -463,7 +463,10 @@ const PostSection = () => {
                       disabled={postSentTo !== "" ? false : true}
                       className="btn bg-blue-400 text-white px-4 py-2 rounded-md font-semibold transform transition hover:bg-white hover:text-blue-400 disabled:bg-blue-300 hover:scale-95"
                       onClick={() => {
-                        toast.success(`Post sent to ${postSentTo}`);
+                        updatePostThatSent({username:post.username,pic:post?.post})
+                        updateCurrentPage("messagepage")
+                        updateMessageWithWhom(postSentTo)
+                        // toast.success(`Post sent to ${postSentTo}`);
                         setPostSentTo("");
                         setSharePost(false);
                       }}

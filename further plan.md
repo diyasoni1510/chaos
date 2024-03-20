@@ -57,6 +57,6 @@ On saved page
 1. update name - (done)
 2. Reels sharing
 3. delete account funtionality - (done)
-4. share post (with another user)
+4. share post (with another user) - doing
 5. Notification for post like
 6. forgot password (with email) 

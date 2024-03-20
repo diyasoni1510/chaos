@@ -20,7 +20,7 @@ const MessagePage = () => {
 
   const userOne = JSON.parse(localStorage?.getItem("LoggedInUser"))._id;
 
-  const { updateCurrentPage, messageWithWhom,updateWhoseProfile } = useRouteContext();
+  const { updateCurrentPage, messageWithWhom,updateWhoseProfile, postThatSent } = useRouteContext();
 
   const getUserInfo = async () => {
     try {
@@ -80,6 +80,12 @@ const MessagePage = () => {
   useEffect(() => {
     getAllMessage();
   });
+
+  useEffect(()=>{
+console.log(
+  postThatSent
+)
+  },[])
 
   const themeOptions = [
     {

@@ -21,7 +21,6 @@ const Index = () => {
   const [isLogin,setIsLogin] = useState(false)
   useEffect(()=>{
     localStorage?.getItem("LoggedInUser") && setIsLogin(true)
-    console.log(isLogin)
   })
   return (
     <>
