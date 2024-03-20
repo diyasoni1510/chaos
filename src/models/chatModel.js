@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const chatSchema = new mongoose.Schema({
     users : Array,
     messages:[{message:String,sender:String}],
+    sentpost:[{post:String,user:String,sender:String}],
     craeaedAt : { type: Date, default: Date.now }
 }) 
 

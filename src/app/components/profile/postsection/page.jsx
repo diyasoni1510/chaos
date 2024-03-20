@@ -18,7 +18,7 @@ import { IoWarningOutline } from "react-icons/io5";
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const PostSection = () => {
-  const [sharePost, setSharePost] = useState(false);
+  const [sharePost, setSharePost] = useState("");
   const [showComments, setShowComments] = useState("");
   const [postSentTo, setPostSentTo] = useState("");
   const [comment, setComment] = useState("");
@@ -118,11 +118,11 @@ const PostSection = () => {
 
   return (
     <div className="mb-10">
-      {allPosts?.data.map((post, index) => {
+      {allPosts?.data.map((post) => {
         return (
           <div
             className="mt-2 md:border border-gray-400 rounded-md p-3 flex flex-col justify-center items-center"
-            key={index}
+            key={post._id}
           >
             <div className=" w-full rounded-sm md:border border-gray-200 md:p-2">
               <div className="flex items-center justify-between mt-3">
@@ -217,7 +217,7 @@ const PostSection = () => {
                   />
                   <FaRegShareFromSquare
                     className="text-2xl md:text-3xl cursor-pointer"
-                    onClick={() => setSharePost(true)}
+                    onClick={() => setSharePost(post._id)}
                   />
                 </div>
                 <div>
@@ -425,7 +425,7 @@ const PostSection = () => {
                 </dialog>
               )}
             </div>
-            {sharePost === true && (
+            {sharePost === post._id && (
               <dialog
                 id="share-post"
                 className="modal bg-blue-100 py-5  z-40 fixed top-[40%] shadow-lg bg-opacity-20 w-[300px] "
@@ -454,7 +454,7 @@ const PostSection = () => {
                     <button
                       className="btn bg-blue-400 text-white px-4 py-2 rounded-md font-semibold transform transition hover:bg-white hover:text-blue-400 disabled:bg-blue-300 hover:scale-95"
                       onClick={() => {
-                        setSharePost(false);
+                        setSharePost("");
                       }}
                     >
                       Close
@@ -463,12 +463,12 @@ const PostSection = () => {
                       disabled={postSentTo !== "" ? false : true}
                       className="btn bg-blue-400 text-white px-4 py-2 rounded-md font-semibold transform transition hover:bg-white hover:text-blue-400 disabled:bg-blue-300 hover:scale-95"
                       onClick={() => {
-                        updatePostThatSent({username:post.username,pic:post?.post})
+                        updatePostThatSent({username:post?.username,pic:post?.post})
                         updateCurrentPage("messagepage")
                         updateMessageWithWhom(postSentTo)
                         // toast.success(`Post sent to ${postSentTo}`);
                         setPostSentTo("");
-                        setSharePost(false);
+                        setSharePost("");
                       }}
                     >
                       Send

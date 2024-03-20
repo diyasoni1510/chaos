@@ -20,7 +20,12 @@ const MessagePage = () => {
 
   const userOne = JSON.parse(localStorage?.getItem("LoggedInUser"))._id;
 
-  const { updateCurrentPage, messageWithWhom,updateWhoseProfile, postThatSent } = useRouteContext();
+  const {
+    updateCurrentPage,
+    messageWithWhom,
+    updateWhoseProfile,
+    postThatSent,
+  } = useRouteContext();
 
   const getUserInfo = async () => {
     try {
@@ -40,6 +45,7 @@ const MessagePage = () => {
         userOne,
         userTwo,
       });
+      console.log("chatid---------",createChat.data.data._id)
       setChatId(createChat.data.data._id);
     }
   };
@@ -58,6 +64,23 @@ const MessagePage = () => {
     }
   };
 
+  const sendPost = async (post,
+    user,) => {
+    try {
+      const response = await axios.post("/api/chat/updatesentpost", {
+        chatId,
+        post,
+        user,
+        sender: JSON.parse(localStorage?.getItem("LoggedInUser"))._id,
+      });
+      console.log(response)
+      // getAllMessage();
+      // setMessage("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getAllMessage = async () => {
     try {
       const response = await axios.post("/api/chat/allmessages", { chatId });
@@ -67,8 +90,7 @@ const MessagePage = () => {
     }
   };
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
   useEffect(() => {
     getUserInfo();
   }, []);
@@ -81,11 +103,12 @@ const MessagePage = () => {
     getAllMessage();
   });
 
-  useEffect(()=>{
-console.log(
-  postThatSent
-)
-  },[])
+  useEffect(() => {
+    console.log(postThatSent);
+    if(postThatSent){
+      sendPost(postThatSent.pic,postThatSent.username)
+    }
+  }, [chatId]);
 
   const themeOptions = [
     {
@@ -133,7 +156,7 @@ console.log(
               className="cursor-pointer"
               onClick={() => {
                 updateCurrentPage("myprofile");
-                updateWhoseProfile(messageWithUser?._id)
+                updateWhoseProfile(messageWithUser?._id);
               }}
             >
               <p>{messageWithUser?.name}</p>
