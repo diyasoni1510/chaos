@@ -184,7 +184,7 @@ const MessagePage = () => {
             {
             allSentPost.map((post) => {
               if (
-                message.sender ===
+                post.sender ===
                 JSON.parse(localStorage?.getItem("LoggedInUser"))._id
               ) {
                 return (
