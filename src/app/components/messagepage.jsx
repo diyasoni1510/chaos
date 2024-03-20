@@ -189,14 +189,14 @@ const MessagePage = () => {
               ) {
                 return (
                   <div className=" mb-8 float-right w-[200px] h-[200px]" key={post._id}>
-                    <p>{post.user}'s post</p>
+                    <p>{post.user}&apos;s post</p>
                     <img src={post.post} alt="" className="h-full w-full object-cover" />
                   </div>
                 );
               } else {
                 return (
                   <div className=" mb-8 float-left w-[200px] h-[200px]" key={post._id}>
-                    <p>{post.user}'s post</p>
+                    <p>{post.user}&apos;s post</p>
                     <img src={post.post} alt="" className="h-full w-full object-cover" />
                   </div>
                 );
