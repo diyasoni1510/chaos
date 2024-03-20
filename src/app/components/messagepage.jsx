@@ -14,6 +14,7 @@ const MessagePage = () => {
   const [isOpenThemeBox, setIsOpenThemeBox] = useState(false);
   const [message, setMessage] = useState("");
   const [allMessages, setAllMessages] = useState([]);
+  const [allSentPost,setAllSentPost] = useState([])
   const [userTwo, setUserTwo] = useState();
   const [chatId, setChatId] = useState("");
   const router = useRouter();
@@ -25,6 +26,7 @@ const MessagePage = () => {
     messageWithWhom,
     updateWhoseProfile,
     postThatSent,
+    updatePostThatSent
   } = useRouteContext();
 
   const getUserInfo = async () => {
@@ -35,7 +37,7 @@ const MessagePage = () => {
       setMessageWithUser(response.data.data);
       setUserTwo(response.data.data._id);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -45,7 +47,6 @@ const MessagePage = () => {
         userOne,
         userTwo,
       });
-      console.log("chatid---------",createChat.data.data._id)
       setChatId(createChat.data.data._id);
     }
   };
@@ -60,7 +61,7 @@ const MessagePage = () => {
       getAllMessage();
       setMessage("");
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -73,11 +74,12 @@ const MessagePage = () => {
         user,
         sender: JSON.parse(localStorage?.getItem("LoggedInUser"))._id,
       });
-      console.log(response)
-      // getAllMessage();
-      // setMessage("");
+      // console.log(response)
+      getAllMessage();
+    updatePostThatSent("")
+
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -85,8 +87,9 @@ const MessagePage = () => {
     try {
       const response = await axios.post("/api/chat/allmessages", { chatId });
       setAllMessages(response?.data?.data?.messages);
+      setAllSentPost(response?.data?.data?.sentpost)
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -104,10 +107,11 @@ const MessagePage = () => {
   });
 
   useEffect(() => {
-    console.log(postThatSent);
     if(postThatSent){
       sendPost(postThatSent.pic,postThatSent.username)
     }
+    // allSentPost && 
+    // updatePostThatSent("")
   }, [chatId]);
 
   const themeOptions = [
@@ -135,7 +139,7 @@ const MessagePage = () => {
   return (
     <>
       <div
-        className="h-[620px] bg-center bg-cover"
+        className="h-[620px] bg-center bg-cover overflow-y-scroll"
         style={{
           backgroundImage: `url(${bgTheme})`,
         }}
@@ -174,8 +178,35 @@ const MessagePage = () => {
             <span className="text-sm">Theme</span> <CgArrowsExchangeV />
           </div>
         </div>
-        <div className="display-msgs p-2 h-[580px] overflow-y-scroll">
-          {allMessages &&
+        <div className="h-[500px] overflow-y-scroll">
+          {allSentPost.length > 0 &&
+          <div className="display-sentpost p-2  overflow-y-scroll">
+            {
+            allSentPost.map((post) => {
+              if (
+                message.sender ===
+                JSON.parse(localStorage?.getItem("LoggedInUser"))._id
+              ) {
+                return (
+                  <div className=" mb-8 float-right w-[200px] h-[200px]" key={post._id}>
+                    <p>{post.user}'s post</p>
+                    <img src={post.post} alt="" className="h-full w-full object-cover" />
+                  </div>
+                );
+              } else {
+                return (
+                  <div className=" mb-8 float-left w-[200px] h-[200px]" key={post._id}>
+                    <p>{post.user}'s post</p>
+                    <img src={post.post} alt="" className="h-full w-full object-cover" />
+                  </div>
+                );
+              }
+            })}
+        </div>
+}
+          {allMessages.length > 0 &&
+        <div className="display-msgs p-2 overflow-y-scroll">
+{
             allMessages.map((message, index) => {
               if (
                 message.sender ===
@@ -201,6 +232,8 @@ const MessagePage = () => {
               }
             })}
         </div>
+}
+</div>
         <div className="msg-input absolute bottom-0 mb-4  w-[325px] mx-4 rounded-3xl flex py-2 items-center px-4 space-x-2 bg-white shadow">
           <CiCamera className="text-3xl" />
           <input
