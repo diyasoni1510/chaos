@@ -31,14 +31,12 @@ export async function POST(request: NextRequest) {
           $sort: { createdAt: -1 }, // Newest posts first based on 'createdAt'
         },
       ]);
-      console.log(savepostinfo);
       const response = NextResponse.json({
         message: "all posts",
         data: savepostinfo,
       });
       return response;
     } else {
-      console.log("Post not found");
       const response = NextResponse.json({
         message: "erorrs",
       });

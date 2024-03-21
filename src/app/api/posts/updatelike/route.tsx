@@ -11,7 +11,6 @@ export async function POST(request : NextRequest){
     try {
         const reqBody = await request.json()
         const {_id,like,add} = reqBody
-        console.log(add)
         if(add)
         var userToBeUpdate = await Post.findOneAndUpdate({ _id },{ $addToSet: { likes: like }})
     else
